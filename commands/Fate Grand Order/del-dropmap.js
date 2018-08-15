@@ -15,13 +15,24 @@ module.exports = class RemoveDropMapCommand extends Command {
       help: "Remove a drop map."
     });
   }
+  function dropMap(mapName) {
+    if (Constants.dropMap.has(mapName)) {
+      if (Constants.dropMap.delete(mapName)) {
+        return "Map " + mapName + " successfully removed.";
+      } else {
+        return "Error removing map " + mapName + ", sorry!";
+      }
+    } else {
+      return "Map not found.";
+    }
+  }
   run(message, args, prefix) {
     if (!message.member.hasPermission('MANAGE_GUILD')) {
       return message.channel.send("Error: You need to have server management rights to edit drop maps!");
     }
 
     if (args.length == 1) {
-      message.channel.send(Constants.dropMap(args[0]));
+      message.channel.send(this.dropMap(args[0]));
     } else {
       message.channel.send(`You need to inform the map name.`);
     }

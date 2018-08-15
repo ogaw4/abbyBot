@@ -46,25 +46,3 @@ module.exports = {
     ['lb2', 'https://i.imgur.com/jcs4wZl.jpg']
   ])
 }
-
-module.exports.pushMap = function pushMap(mapName, mapUrl) {
-  if (module.exports.dropMap.has(mapName)) {
-    return "There's already a map with that name in the list.";
-  } else {
-    module.exports.dropMap.set(mapName, mapUrl);
-    return "Map " + mapName + " added to the list.";
-  }
-
-}
-
-module.exports.dropMap = function dropMap(mapName) {
-  if (module.exports.dropMap.has(mapName)) {
-    if (module.exports.dropMap.delete(mapName)) {
-      return "Map " + mapName + " successfully removed.";
-    } else {
-      return "Error removing map " + mapName + ", sorry!";
-    }
-  } else {
-    return "Map not found.";
-  }
-}
