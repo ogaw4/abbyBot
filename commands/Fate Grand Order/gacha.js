@@ -17,6 +17,8 @@ module.exports = class GachaCommand extends Command {
       ]
     });
     this.cooldown = {};
+    this.cdMessages = ["Not that fast!", "No whaling allowed!", "Are you sure you have enough money?", "Going for NP5?",
+     "Don't kill wallet-kun!", "Noo, I'm not on rate up right now!"];
   }
   resetCooldown(id) {
     this.cooldown[id] = 0;
@@ -74,7 +76,8 @@ module.exports = class GachaCommand extends Command {
       } else {
         let time = this.cooldown[message.author.id] - message.createdTimestamp + 900000;
         if (time > 0 && message.author.id != this.main.config.ownerID) {
-          message.channel.send(`No whaling allowed! You can only use this command once every 15 minutes. Please wait ${Math.floor(time / 60000)} minutes and ${Math.ceil(time / 1000) % 60} seconds to try again.`);
+         let cdMess = this.main.util.ARand(this.cdMessages);
+         message.channel.send(`${cdMess} You can only use this command once every 15 minutes. Please wait ${Math.floor(time / 60000)} minutes and ${Math.ceil(time / 1000) % 60} seconds to try again.`);
         } else {
           this.cooldown[message.author.id] = message.createdTimestamp;
           const canvas = new Canvas(645, 444);
