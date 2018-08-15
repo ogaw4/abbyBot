@@ -1,0 +1,31 @@
+{
+  "name": "abbybot",
+  "version": "1.0.0",
+  "description": "A discord bot",
+  "engines": {
+    "node": "9.2.0",
+    "npm": "3.10.8"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "canvas": "^1.6.10",
+    "discord.js": "11.1.0",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "flip-text": "^1.1.0",
+    "gifencoder": "^1.1.0",
+    "google-translate-api": "arthurlacoste/google-translate-api",
+    "html-entities": "^1.2.0",
+    "redis": "^2.6.3",
+    "ws": "^3.3.3"
+  },
+  "keywords": [
+    "node",
+    "aws",
+    "express"
+  ],
+  "license": "MIT"
+}
