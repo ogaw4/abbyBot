@@ -20,6 +20,7 @@ module.exports = class AddDropMapCommand extends Command {
     });
   }
   pushMap(mapName, mapUrl) {
+    console.log("adding " + mapUrl);
     if (Constants.dropMap.has(mapName)) {
       return "There's already a map with that name in the list.";
     } else {
@@ -28,12 +29,10 @@ module.exports = class AddDropMapCommand extends Command {
     }
   }
   run(message, args, prefix) {
-    console.log(Constants.dropMap);
-
     if (!message.member.hasPermission('MANAGE_GUILD')) {
       return message.channel.send("Error: You need to have server management rights to edit drop maps!");
     }
-
+    console.log("got args " + args);
     if (args.length == 2) {
       message.channel.send(this.pushMap(args[0], args[1]));
     } else {

@@ -17,6 +17,7 @@ module.exports = class DropMapCommand extends Command {
     });
   }
   run(message, args, prefix) {
+    console.log(Constants.dropMap);
     args = args.join(' ');
     if (args) {
       if (Constants.dropMap.has(args)) {
