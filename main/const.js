@@ -26,7 +26,7 @@ module.exports = {
   cirno: new Map([
     ["interested", 'http://i.imgur.com/mFGvw33.png'],
     ["serious", 'http://i.imgur.com/FW9LtSk.png']
-  ])
+  ]),
   dropMap : new Map([
     ['fuyuki', 'https://i.imgur.com/TsZ8xYs.png'],
     ['orleans', 'https://i.imgur.com/HQ8x25h.png'],
