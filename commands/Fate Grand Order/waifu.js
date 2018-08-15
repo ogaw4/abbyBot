@@ -19,7 +19,7 @@ module.exports = class FGOWaifuCommand extends Command {
     if (message.member) name = message.member.displayName;
     let time = this.cooldown[message.author.id] - message.createdTimestamp + 900000;
     if (time > 0) {
-        let cdMess = this.main.util.ARand(cdMessages);
+        let cdMess = this.main.util.ARand(this.cdMessages);
         message.channel.send(`${cdMess} You can only use this command once every 15 minutes!! Please wait ${Math.floor(time / 60000)} minutes ${Math.ceil(time / 1000) % 60} seconds.`);
     } else {
       this.cooldown[message.author.id] = message.createdTimestamp;
