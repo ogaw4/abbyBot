@@ -6,7 +6,7 @@ const Discord = require('discord.js');
 module.exports = class FGOQuizCommand extends Command {
   constructor(main) {
     super(main, {
-      name: "fgo-quiz",
+      name: "quiz",
       category: "Fate Grand Order",
       help: "Get a quiz of a random Servant in Fate Grand Order, you'll have 5 minutes to answer!"
     });
@@ -49,6 +49,9 @@ module.exports = class FGOQuizCommand extends Command {
 
         let quiz_init_owner = message.member.id;
 
+        console.log("owner " + message.member.id);
+        console.log("or owner is " + message.member);
+
         collector.on('collect', (m, collector) => {
           if (this.quizStatus[message.channel.id]) {
             if (m.content.toLowerCase() == r.name.toLowerCase()) {
@@ -57,7 +60,7 @@ module.exports = class FGOQuizCommand extends Command {
               message.channel.send(`${right} **Congratulations ${m.author}!** ${right}\nThe right answer is **${r.name}**!`);
               this.quizStatus[message.channel.id] = 0;
               collector.stop();
-            } else if (m.content.toLowerCase() == "stoppu" && (message.member.hasPermission('MANAGE_GUILD') || message.member.id == quiz_init_owner)) {
+            } else if (m.content.toLowerCase() == "stoppu" && (m.member.id == quiz_init_owner)) {
               let guild = message.guild;
               let right = guild.emojis.find("name", "AbbyStronk");
               message.channel.send(`Quiz aborted! ${right}`);

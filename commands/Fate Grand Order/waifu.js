@@ -3,7 +3,7 @@ const Command = require('../../main/command');
 module.exports = class FGOWaifuCommand extends Command {
   constructor(main) {
     super(main, {
-      name: "fgo-waifu",
+      name: "waifu",
       category: "Fate Grand Order",
       help: "Marry a random Servant in Fate Grand Order. Could be male or female though!\n\nCurrent Rate: 1% 5* | 7% 4* | 20% 3* | 30% 2* | 42% 1*"
     });
