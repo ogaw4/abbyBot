@@ -17,7 +17,7 @@ module.exports = class AbbyBot {
       let loginTime = Date.now();
       this.client.on('ready', () => {
         this.dashboard = new Dashboard(this);
-        console.log(`Logged in! Time taken: ${Date.now() - loginTime}ms`);
+        console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + `Logged in! Time taken: ${Date.now() - loginTime}ms`);
       });
       this.client.on('disconnect', () => {
         loginTime = Date.now();
@@ -80,7 +80,7 @@ module.exports = class AbbyBot {
             command.run(message, args.slice(1), prefix);
             command.timeUsed++;
             this.dashboard.update({ type: "commandUsage" })
-            console.log(`${command.name} command has been triggered`);
+            console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + `${command.name} command has been triggered`);
 
           } else if (customCommand.has(args[0])) message.channel.send(customCommand.get(args[0]));
         });

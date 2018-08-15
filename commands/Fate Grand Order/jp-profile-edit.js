@@ -57,6 +57,7 @@ module.exports = class FGOProfileEditCommand extends Command {
           modified = true;
         }
         if (modified) {
+          console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + " profile edit.");
           console.log(profile);
           this.main.db.set(`fgoProfile_${message.author.id}`, JSON.stringify(profile)).then(() => {
             message.channel.send('Profile saved successfully', {embed: this.main.util.fgoProfile(message.author, profile)});

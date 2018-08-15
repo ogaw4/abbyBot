@@ -35,7 +35,7 @@ module.exports = class FGOQuizCommand extends Command {
         do {
           r = this.main.util.ARand(servantList);
         } while (r.desc == "None");
-        console.log(r.name);
+        console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.name);
         result = {
           title: "Which servant is this?",
           description: `\u200b\n${r.desc.replace(new RegExp(r.name, 'g'), '[REMOVED]')} You have 5 minutes to answer (case insensitive, exact full name as in Cirnopedia)`

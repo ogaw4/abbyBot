@@ -7,7 +7,7 @@
   var ws = new WebSocket(HOST);
   ws.onmessage = function (event) {
     event = JSON.parse(event.data);
-    console.log(event);
+    console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + event);
     switch(event.type) {
       case "commandUsage":
         document.getElementById('commandCount').innerHTML = parseInt(document.getElementById('commandCount').innerHTML) + 1;

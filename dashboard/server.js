@@ -11,7 +11,7 @@ module.exports = class Dashboard {
 
     const app = express();
     const server = app.use(express.static(path.join(__dirname, 'html')) )
-      .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+      .listen(PORT, () => console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + `Listening on ${ PORT }`));
 
     app.set('views', path.join(__dirname, 'html'));
     app.set('view engine', 'ejs');

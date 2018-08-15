@@ -11,7 +11,7 @@ module.exports = class Database {
       } else {
         this.client.get(key, (err, result) => {
           if (err) {
-            console.log(err);
+            console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + err);
             reject(err);
           }
           this.cache[key] = result;
@@ -24,7 +24,7 @@ module.exports = class Database {
     return new Promise((resolve, reject) => {
       this.client.set(key, value, (err) => {
         if (err) {
-          console.log(err);
+          console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + err);
           reject(err);
         }
         this.cache[key] = value;
@@ -36,7 +36,7 @@ module.exports = class Database {
     return new Promise((resolve, reject) => {
       this.client.del(key, (err) => {
         if (err) {
-          console.log(err);
+          console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + err);
           reject(err);
         }
         this.cache[key] = undefined;

@@ -23,6 +23,7 @@ module.exports = class FGOProfileCommand extends Command {
       if (mentionID) player = mentionID[1];
       else player = "";
     }
+    console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + " profile get.");
     console.log(player);
     Promise.all([this.main.db.get(`fgoProfile_${player}`), this.main.client.fetchUser(player)]).then((profile) => {
       if (profile[0]) {
