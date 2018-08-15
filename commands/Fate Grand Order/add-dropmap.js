@@ -16,7 +16,8 @@ module.exports = class AddDropMapCommand extends Command {
           desc: "Direct image link for the drop map."
         }
       ],
-      help: "Add a new drop map."
+      help: "Add a new drop map.",
+      caseSensitive: true
     });
   }
   pushMap(mapName, mapUrl) {
