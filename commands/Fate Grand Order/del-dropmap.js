@@ -12,7 +12,8 @@ module.exports = class RemoveDropMapCommand extends Command {
           desc: "The name of the map to be deleted."
         }
       ],
-      help: "Remove a drop map."
+      help: "Remove a drop map.",
+      caseSensitive: true
     });
   }
   dropMap(mapName) {

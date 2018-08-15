@@ -8,6 +8,8 @@ module.exports = class FGOWaifuCommand extends Command {
       help: "Marry a random Servant in Fate Grand Order. Could be male or female though!\n\nCurrent Rate: 1% 5* | 7% 4* | 20% 3* | 30% 2* | 42% 1*"
     });
     this.cooldown = {};
+    this.cdMessages = ["Polygamy is bad civilization!", "Do we have a Casanova over here?", "How many waifus do you need?",
+     "Dedicate yourself to your current waifu!", "How long did your marriage last??"];
   }
   resetCooldown(id) {
     this.cooldown[id] = 0;
@@ -16,8 +18,9 @@ module.exports = class FGOWaifuCommand extends Command {
     let name = message.author.username;
     if (message.member) name = message.member.displayName;
     let time = this.cooldown[message.author.id] - message.createdTimestamp + 900000;
-    if (time > 0 && message.author.id != this.main.config.ownerID) {
-        message.channel.send(`Polygamy is bad civilization! You can only use this command once every 15 minutes!! Please wait ${Math.floor(time / 60000)} minutes ${Math.ceil(time / 1000) % 60} seconds.`);
+    if (time > 0) {
+        let cdMess = this.main.util.ARand(cdMessages);
+        message.channel.send(`${cdMess} You can only use this command once every 15 minutes!! Please wait ${Math.floor(time / 60000)} minutes ${Math.ceil(time / 1000) % 60} seconds.`);
     } else {
       this.cooldown[message.author.id] = message.createdTimestamp;
       this.main.util.fgoGacha().then(body => {
