@@ -27,4 +27,44 @@ module.exports = {
     ["interested", 'http://i.imgur.com/mFGvw33.png'],
     ["serious", 'http://i.imgur.com/FW9LtSk.png']
   ])
+  dropMap : new Map([
+    ['fuyuki', 'https://i.imgur.com/TsZ8xYs.png'],
+    ['orleans', 'https://i.imgur.com/HQ8x25h.png'],
+    ['rome', 'https://i.imgur.com/kkmWHPP.png'],
+    ['okeanos', 'https://i.imgur.com/sttaCag.png'],
+    ['london', 'https://i.imgur.com/f8dRAp5.png'],
+    ['america', 'https://i.imgur.com/fIBQkVJ.jpg'],
+    ['camelot', 'https://i.imgur.com/4WxSnQp.jpg'],
+    ['babylon', 'https://i.imgur.com/3HHRMF6.jpg'],
+    ['shinjuku', 'https://i.imgur.com/V54CH7q.jpg'],
+    ['agartha', 'https://i.imgur.com/ocE3A5y.jpg'],
+    ['shimosa', 'https://i.imgur.com/aDK6JCa.jpg'],
+    ['salem', 'https://i.imgur.com/TTS1Vzz.jpg'], 
+    ['anastasia', 'https://i.imgur.com/Cwzv15f.jpg'], 
+    ['lb1', 'https://i.imgur.com/Cwzv15f.jpg'], 
+    ['goetterdaemmerung', 'https://i.imgur.com/jcs4wZl.jpg'],
+    ['lb2', 'https://i.imgur.com/jcs4wZl.jpg']
+  ]);
+}
+
+const.prototype.pushMap(mapName, mapUrl) {
+  if (module.exports.dropMap.has(mapName)) {
+    return "There's already a map with that name in the list.";
+  } else {
+    module.exports.dropMap.set(mapName, mapUrl);
+    return "Map " + mapName + " added to the list.";
+  }
+
+}
+
+const.prototype.dropMap(mapName) {
+  if (module.exports.dropMap.has(mapName)) {
+    if (module.exports.dropMap.delete(mapName)) {
+      return "Map " + mapName + " successfully removed.";
+    } else {
+      return "Error removing map " + mapName + ", sorry!";
+    }
+  } else {
+    return "Map not found.";
+  }
 }
