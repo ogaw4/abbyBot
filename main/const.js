@@ -44,7 +44,7 @@ module.exports = {
     ['lb1', 'https://i.imgur.com/Cwzv15f.jpg'], 
     ['goetterdaemmerung', 'https://i.imgur.com/jcs4wZl.jpg'],
     ['lb2', 'https://i.imgur.com/jcs4wZl.jpg']
-  ]);
+  ])
 }
 
 const.prototype.pushMap(mapName, mapUrl) {
