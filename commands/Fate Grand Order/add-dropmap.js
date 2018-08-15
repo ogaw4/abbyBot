@@ -28,6 +28,8 @@ module.exports = class AddDropMapCommand extends Command {
     }
   }
   run(message, args, prefix) {
+    console.log(Constants.dropMap);
+
     if (!message.member.hasPermission('MANAGE_GUILD')) {
       return message.channel.send("Error: You need to have server management rights to edit drop maps!");
     }
