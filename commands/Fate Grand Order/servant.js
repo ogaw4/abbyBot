@@ -34,7 +34,7 @@ module.exports = class FGOServantCommand extends Command {
         if (result) {
           args = result.item;
           let attack = args.attacks.replace(/.{2}/g, function (match) {
-            return ["Quick, ", "Arts, ", "Busters, "][parseInt(match)];
+            return ["", "Quick, ", "Arts, ", "Busters, "][parseInt(match)];
           }).slice(0, -2);
           args.note = args.note.replace(/ +(\n|$)/g, "\n");
           if (args.note == "\n") args.note = "None";
