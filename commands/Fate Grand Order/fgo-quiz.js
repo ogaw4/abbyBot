@@ -26,7 +26,7 @@ module.exports = class FGOQuizCommand extends Command {
       }
       if (Math.random() <= 0.5) {
         r = this.main.util.ARand(servantList);
-        console.log(r.name);
+        console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.name);
         result = {
           title: "Which servant has this Noble Phantasm?",
           description: `\u200b\n${r.NP.split('\n').slice(0, 2).join('\n').replace(/\([^\)]+\) /g, '')}\n\n You have 5 minutes to answer (case insensitive, exact full name as in Cirnopedia)`

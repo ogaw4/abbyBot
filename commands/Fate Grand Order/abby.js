@@ -20,7 +20,6 @@ module.exports = class AbbyCommand extends Command {
 
     let pic = Math.trunc(Math.random() * 559 + 1);
     let str_pic = this.zeroFill(pic, 3);
-    console.log(`${Constants.db}images/CE/${str_pic}.png`);
     message.channel.send('', {file: {attachment: `${Constants.db}images/CE/${str_pic}.png`, name: 'Abby.png'}});
   }
 }
