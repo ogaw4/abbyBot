@@ -47,7 +47,7 @@ module.exports = {
   ])
 }
 
-const.prototype.pushMap(mapName, mapUrl) {
+pushMap(mapName, mapUrl) {
   if (module.exports.dropMap.has(mapName)) {
     return "There's already a map with that name in the list.";
   } else {
@@ -57,7 +57,7 @@ const.prototype.pushMap(mapName, mapUrl) {
 
 }
 
-const.prototype.dropMap(mapName) {
+dropMap(mapName) {
   if (module.exports.dropMap.has(mapName)) {
     if (module.exports.dropMap.delete(mapName)) {
       return "Map " + mapName + " successfully removed.";
