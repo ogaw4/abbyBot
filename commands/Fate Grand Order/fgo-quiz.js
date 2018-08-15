@@ -47,6 +47,8 @@ module.exports = class FGOQuizCommand extends Command {
           time: 300000
         });
 
+        let quiz_init_owner = message.member.id;
+
         collector.on('collect', (m, collector) => {
           if (this.quizStatus[message.channel.id]) {
             if (m.content.toLowerCase() == r.name.toLowerCase()) {
@@ -55,8 +57,10 @@ module.exports = class FGOQuizCommand extends Command {
               message.channel.send(`${right} **Congratulations ${m.author}!** ${right}\nThe right answer is **${r.name}**!`);
               this.quizStatus[message.channel.id] = 0;
               collector.stop();
-            } else if (m.content.toLowerCase() == "stop-quiz") {
-              message.channel.send("Quiz aborted!");
+            } else if (m.content.toLowerCase() == "stoppu" && (message.member.id == quiz_init_owner)) {
+              let guild = message.guild;
+              let right = guild.emojis.find("name", "AbbyStronk");
+              message.channel.send(`Quiz aborted! ${right}`);
               this.quizStatus[message.channel.id] = 0;
               collector.stop();
             } else {
