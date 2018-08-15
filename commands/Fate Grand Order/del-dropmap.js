@@ -15,7 +15,7 @@ module.exports = class RemoveDropMapCommand extends Command {
       help: "Remove a drop map."
     });
   }
-  function dropMap(mapName) {
+  dropMap(mapName) {
     if (Constants.dropMap.has(mapName)) {
       if (Constants.dropMap.delete(mapName)) {
         return "Map " + mapName + " successfully removed.";
