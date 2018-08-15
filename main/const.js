@@ -47,7 +47,7 @@ module.exports = {
   ])
 }
 
-pushMap(mapName, mapUrl) {
+function pushMap(mapName, mapUrl) {
   if (module.exports.dropMap.has(mapName)) {
     return "There's already a map with that name in the list.";
   } else {
@@ -57,7 +57,7 @@ pushMap(mapName, mapUrl) {
 
 }
 
-dropMap(mapName) {
+function dropMap(mapName) {
   if (module.exports.dropMap.has(mapName)) {
     if (module.exports.dropMap.delete(mapName)) {
       return "Map " + mapName + " successfully removed.";
