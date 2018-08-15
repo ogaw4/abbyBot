@@ -57,7 +57,7 @@ module.exports = class FGOQuizCommand extends Command {
               message.channel.send(`${right} **Congratulations ${m.author}!** ${right}\nThe right answer is **${r.name}**!`);
               this.quizStatus[message.channel.id] = 0;
               collector.stop();
-            } else if (m.content.toLowerCase() == "stoppu" && (message.member.id == quiz_init_owner)) {
+            } else if (m.content.toLowerCase() == "stoppu" && (message.member.hasPermission('MANAGE_GUILD') || message.member.id == quiz_init_owner)) {
               let guild = message.guild;
               let right = guild.emojis.find("name", "AbbyStronk");
               message.channel.send(`Quiz aborted! ${right}`);
