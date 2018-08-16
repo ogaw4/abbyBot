@@ -49,9 +49,12 @@ module.exports = class FGOQuizCommand extends Command {
 
         let quiz_init_owner = message.member.id;
 
+
+        let aliases = r.alias.map(function(itm) { return itm.toLowerCase(); });
+
         collector.on('collect', (m, collector) => {
           if (this.quizStatus[message.channel.id]) {
-            if (m.content.toLowerCase() == r.name.toLowerCase()) {
+            if (aliases.indexOf(m.content.toLowerCase()) > -1) {
               let guild = message.guild;
               let right = guild.emojis.find("name", "AbbySmile");
               message.channel.send(`${right} **Congratulations ${m.author}!** ${right}\nThe right answer is **${r.name}**!`);
