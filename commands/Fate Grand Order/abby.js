@@ -1,5 +1,6 @@
 const Command = require('../../main/command');
 const Constants = require('../../main/const');
+const snek = require('snekfetch');
 
 module.exports = class AbbyCommand extends Command {
   constructor(main) {
