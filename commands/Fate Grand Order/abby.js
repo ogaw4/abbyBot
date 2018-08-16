@@ -23,7 +23,15 @@ module.exports = class AbbyCommand extends Command {
         r = JSON.parse(r.text);
         let len = Object.keys(r).length;
         let picobj = r[this.main.util.rand(0, len - 1)];
-        message.channel.send(`<${picobj.src}>`, {file: {attachment: `${Constants.db}images/abby/${picobj.fname}`, name: 'Abby.png'}});
+        console.log(picobj);
+        let embed = {
+          title: "Source",
+          color: 0xff0000,
+          description: "\u200b",
+          url: picobj.src,
+          file: {attachment: `${Constants.db}images/abby/${picobj.fname}`, name: 'Abby.png'}
+        }
+        message.channel.send('', {embed});
     });
     
   }
