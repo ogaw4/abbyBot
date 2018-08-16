@@ -26,7 +26,7 @@ module.exports = class AbbyCommand extends Command {
         console.log(picobj);
         let embed = {
           title: "Source",
-          color: 0xff0000,
+          color: 0xe55fbe,
           description: "\u200b",
           url: picobj.src,
           image: {url: `${Constants.db}images/abby/${picobj.fname}`}
