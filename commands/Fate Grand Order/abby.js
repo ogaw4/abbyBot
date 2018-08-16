@@ -18,8 +18,12 @@ module.exports = class AbbyCommand extends Command {
   }
   run(message, args, prefix) {
 
-    let pic = Math.trunc(Math.random() * 10 + 1);
-    let str_pic = this.zeroFill(pic, 3);
-    message.channel.send('', {file: {attachment: `${Constants.db}images/abby/${str_pic}.jpg`, name: 'Abby.png'}});
+    snek.get(`${Constants.db}abby.json`).then(r => {
+        r = JSON.parse(r.text);
+        let len = Object.keys(r).length;
+        let picobj = r[this.rand(0, len - 1)];
+        message.channel.send(`<${picobj.src}>`, {file: {attachment: `${Constants.db}images/abby/${picobj.fname}`, name: 'Abby.png'}});
+    });
+    
   }
 }
