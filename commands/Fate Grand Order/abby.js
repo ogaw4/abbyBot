@@ -23,7 +23,6 @@ module.exports = class AbbyCommand extends Command {
         r = JSON.parse(r.text);
         let len = Object.keys(r).length;
         let picobj = r[this.main.util.rand(1, len)];
-        console.log(picobj);
         let embed = {
           title: "Source",
           color: 0xe55fbe,
