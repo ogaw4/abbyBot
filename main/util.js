@@ -76,7 +76,8 @@ module.exports = class Util {
         if (!(item = r[args.toUpperCase()])) {
           for (let index in r) {
             let i = r[index];
-            if (!item && i.name.toLowerCase().includes(args)) {
+            let aliases = i.alias.map(function(itm) { return itm.toLowerCase(); });
+            if (!item && aliases.indexOf(args.toLowerCase()) > -1) {
               item = i;
               item.id = index;
             }
