@@ -29,7 +29,7 @@ module.exports = class FGOQuizCommand extends Command {
         console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.name);
         result = {
           title: "Which servant has this Noble Phantasm?",
-          description: `\u200b\n${r.NP.split('\n').slice(0, 2).join('\n').replace(/\([^\)]+\) /g, '')}\n\n You have 5 minutes to answer (case insensitive, exact full name as in Cirnopedia)`
+          description: `\u200b\n${r.NP.split('\n').slice(0, 2).join('\n').replace(/\([^\)]+\) /g, '')}\n\n You have 5 minutes to answer, good luck!`
         }
       } else {
         do {
@@ -38,7 +38,7 @@ module.exports = class FGOQuizCommand extends Command {
         console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.name);
         result = {
           title: "Which servant is this?",
-          description: `\u200b\n${r.desc.replace(new RegExp(r.name, 'g'), '[REMOVED]')} You have 5 minutes to answer (case insensitive, exact full name as in Cirnopedia)`
+          description: `\u200b\n${r.desc.replace(new RegExp(r.name, 'g'), '[REMOVED]')} You have 5 minutes to answer, good luck!`
         }
       }
       this.quizStatus[message.channel.id] = true;
@@ -49,7 +49,7 @@ module.exports = class FGOQuizCommand extends Command {
 
         let quiz_init_owner = message.member.id;
 
-    
+
         let aliases = r.alias.map(function(itm) { return itm.toLowerCase(); });
 
         collector.on('collect', (m, collector) => {

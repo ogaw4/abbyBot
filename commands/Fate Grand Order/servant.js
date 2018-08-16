@@ -25,9 +25,6 @@ module.exports = class FGOServantCommand extends Command {
         else {
           result = false;
           for (let item in r) {
-            console.log("getting item " + item);
-            console.log("r[item] is " + r[item]);
-
             let aliases = r[item].alias.map(function(itm) { return itm.toLowerCase(); });
             if (aliases.indexOf(args.toLowerCase()) > -1) {
               if (result) result.other.push(r[item].id);
