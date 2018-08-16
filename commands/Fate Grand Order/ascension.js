@@ -25,7 +25,7 @@ module.exports = class FGOAscensionMatsCommand extends Command {
         else {
           result = false;
           for (let item in r) {
-            let aliases = item.alias.map(function(itm) { return itm.toLowerCase(); });
+            let aliases = r[item].alias.map(function(itm) { return itm.toLowerCase(); });
 
             if (aliases.indexOf(args.toLowerCase()) > -1) {
               if (result) result.other.push(r[item].id);

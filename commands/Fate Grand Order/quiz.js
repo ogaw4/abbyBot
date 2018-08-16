@@ -49,7 +49,7 @@ module.exports = class FGOQuizCommand extends Command {
 
         let quiz_init_owner = message.member.id;
 
-
+    
         let aliases = r.alias.map(function(itm) { return itm.toLowerCase(); });
 
         collector.on('collect', (m, collector) => {
