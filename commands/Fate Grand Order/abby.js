@@ -22,7 +22,7 @@ module.exports = class AbbyCommand extends Command {
     snek.get(`${Constants.db}abby.json`).then(r => {
         r = JSON.parse(r.text);
         let len = Object.keys(r).length;
-        let picobj = r[this.rand(0, len - 1)];
+        let picobj = r[this.main.util.rand(0, len - 1)];
         message.channel.send(`<${picobj.src}>`, {file: {attachment: `${Constants.db}images/abby/${picobj.fname}`, name: 'Abby.png'}});
     });
     
