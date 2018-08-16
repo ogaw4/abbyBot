@@ -18,8 +18,8 @@ module.exports = class AbbyCommand extends Command {
   }
   run(message, args, prefix) {
 
-    let pic = Math.trunc(Math.random() * 559 + 1);
+    let pic = Math.trunc(Math.random() * 10 + 1);
     let str_pic = this.zeroFill(pic, 3);
-    message.channel.send('', {file: {attachment: `${Constants.db}images/CE/${str_pic}.png`, name: 'Abby.png'}});
+    message.channel.send('', {file: {attachment: `${Constants.db}images/abby/${str_pic}.jpg`, name: 'Abby.png'}});
   }
 }
