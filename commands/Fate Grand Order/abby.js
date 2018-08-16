@@ -23,10 +23,11 @@ module.exports = class AbbyCommand extends Command {
         r = JSON.parse(r.text);
         let len = Object.keys(r).length;
         let picobj = r[this.main.util.rand(1, len)];
+        let user = message.guild.members.get(picobj.sub);
         let embed = {
           title: "Source",
           color: 0xe55fbe,
-          description: "\u200b",
+          description: `Submitted by ${user}.`,
           url: picobj.src,
           image: {url: `${Constants.db}images/abby/${picobj.fname}`}
         }
