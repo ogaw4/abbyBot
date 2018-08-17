@@ -89,11 +89,10 @@ module.exports = class Util {
       });
     });
   }
-  fgoGacha() {
+  fgoGacha(sex) {
     return new Promise((resolve, reject) => { 
       let chance = Math.random() * 100;
       let rate = Constants.rate.fgo;
-      console.log(chance);
       if (chance <= rate[0]) chance = "5";
       else if (chance <= rate[1]) chance = "4";
       else if (chance <= rate[2]) chance = "3";
@@ -103,7 +102,7 @@ module.exports = class Util {
         r = JSON.parse(r.text);
         let result = [];
         for (let id in r) {
-          if (r[id].rarity == chance) result.push(r[id]);
+          if (r[id].rarity == chance && (r[id].sex == "?" || r[id].sex == sex)) result.push(r[id]);
         }
         resolve(this.ARand(result));
       });

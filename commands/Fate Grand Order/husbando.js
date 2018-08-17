@@ -1,16 +1,16 @@
 const Command = require('../../main/command');
 const Constants = require('../../main/const');
 
-module.exports = class FGOWaifuCommand extends Command {
+module.exports = class FGOHusbandoCommand extends Command {
   constructor(main) {
     super(main, {
-      name: "waifu",
+      name: "husbando",
       category: "Fate Grand Order",
-      help: "Marry a random female Servant in Fate Grand Order!\n\nCurrent Rate: 5% 5* | 15% 4* | 30% 3* | 25% 2* | 25% 1*"
+      help: "Marry a random male Servant in Fate Grand Order!\n\nCurrent Rate: 5% 5* | 15% 4* | 30% 3* | 25% 2* | 25% 1*"
     });
     this.cooldown = {};
-    this.cdMessages = ["Not that fast!", "Polygamy is bad civilization!", "Do we have a Fergus over here?", "How many waifus do you need?",
-     "Dedicate yourself to your current waifu!", "How long did your marriage last??"];
+    this.cdMessages = ["Not that fast!", "Polygamy is bad civilization!", "Do we have a Mata Hari over here?", "How many husbandos do you need?",
+     "Dedicate yourself to your current husbando!", "How long did your marriage last??"];
   }
   resetCooldown(id) {
     this.cooldown[id] = 0;
@@ -25,11 +25,11 @@ module.exports = class FGOWaifuCommand extends Command {
           {file: {attachment: `${Constants.db}images/abbystop.png`, name: "stop.png"}});
     } else {
       this.cooldown[message.author.id] = message.createdTimestamp;
-      this.main.util.fgoGacha("F").then(body => {
+      this.main.util.fgoGacha("M").then(body => {
         message.channel.send('', {embed: {
           title: "Congratulations!!",
           color: 0xff0000,
-          description: `\u200b\nCongratulations! ${name} got married to ${body.name}! She has a rarity of ${body.rarity}, how lucky!`,
+          description: `\u200b\nCongratulations! ${name} got married to ${body.name}! He has a rarity of ${body.rarity}, how lucky!`,
           image: {
             url: `https://fate-go.cirnopedia.org/icons/servant_card/${body.id}1.jpg`
           }
