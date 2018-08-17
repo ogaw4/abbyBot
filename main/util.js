@@ -93,6 +93,7 @@ module.exports = class Util {
     return new Promise((resolve, reject) => { 
       let chance = Math.random() * 100;
       let rate = Constants.rate.fgo;
+      console.log(chance);
       if (chance <= rate[0]) chance = "5";
       else if (chance <= rate[1]) chance = "4";
       else if (chance <= rate[2]) chance = "3";
