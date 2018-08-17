@@ -29,9 +29,9 @@ module.exports = class AbbyCommand extends Command {
           color: 0xe55fbe,
           description: `Submitted by ${user}.`,
           url: picobj.src,
-          image: {url: `../../images/abby/${picobj.fname}`}
+          image: {url: "attachment://image.png"}
         }
-        message.channel.send('', {embed});
+        message.channel.send('', {embed, files: [{ attachment: `../../images/abby/${picobj.fname}`, name: 'image.png'}]});
     });
     
   }
