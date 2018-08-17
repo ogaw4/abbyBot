@@ -98,10 +98,12 @@ module.exports = class Util {
       else if (chance <= rate[2]) chance = "3";
       else if (chance <= rate[3]) chance = "2";
       else chance = "1";
+      console.log(sex);
       snek.get(`${Constants.db}fgo_main.json`).then(r => {
         r = JSON.parse(r.text);
         let result = [];
         for (let id in r) {
+          console.log(r[id].sex);
           if (r[id].rarity == chance && (r[id].sex == "?" || r[id].sex == sex)) result.push(r[id]);
         }
         resolve(this.ARand(result));
