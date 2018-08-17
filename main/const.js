@@ -1,7 +1,7 @@
 module.exports = {
   db: "https://raw.githubusercontent.com/ogaw4/abbyDB/master/",
   rate: {
-    fgo: [1, 3, 20, 50],
+    fgo: [5, 20, 50, 75],
     gacha: {
       GSR: {s5: 1, s4: 20, c5: 24, c4: 100},
       GS: {s5: 1, s4: 4, s3: 100},
