@@ -45,6 +45,7 @@ module.exports = class GachaCommand extends Command {
   roll1 (ctx, data, pos, rate) {
     return new Promise((resolve, reject) => {
       rate = rate || Constants.rate.gacha.Rest;
+      console.log(rate);
       let card = new Canvas.Image();
       let item = this.getCard(data, rate);
       snek.get(`${Constants.db}images/${item}.png`).then(r => {
