@@ -85,6 +85,7 @@ module.exports = class AbbyBot {
           } else if (customCommand.has(args[0])) message.channel.send(customCommand.get(args[0]));
         });
       });
+      this.client.on('error', console.error);
       this.client.login(this.config.token).catch(console.log);
     }).catch(console.log);
   }
