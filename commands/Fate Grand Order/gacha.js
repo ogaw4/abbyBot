@@ -32,7 +32,7 @@ module.exports = class GachaCommand extends Command {
     this.cooldown[id] = 0;
   }
   getCard(data, rate) {
-    let dice = Math.random() * 101;
+    let dice = Math.random() * 100;
     let item = "";
     if (dice <= rate["s5"])      item = 'S/'  + this.main.util.ARand(data.servants["5"]); 
     else if (dice <= rate["s4"]) item = 'S/'  + this.main.util.ARand(data.servants["4"]);
@@ -65,7 +65,9 @@ module.exports = class GachaCommand extends Command {
       else index = [(index - 5) * 129, 222];
       if (index == 0) return this.roll1(ctx, data, index, Constants.rate.gacha.GSR);
       if (index == 1) return this.roll1(ctx, data, index, Constants.rate.gacha.GS);
-      return this.roll1(ctx, data, index);
+      var res = this.roll1(ctx, data, index);
+      console.log(res);
+      return res;
     });
     return Promise.all(results);
   }
