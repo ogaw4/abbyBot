@@ -43,15 +43,10 @@ module.exports = class GachaCommand extends Command {
     return item;
   } 
   roll1 (ctx, data, pos, rate) {
-    console.log("rolling one");
-    console.log(data);
-    console.log(pos);
-    console.log(rate);
     return new Promise((resolve, reject) => {
       rate = rate || Constants.rate.gacha.Rest;
       let card = new Canvas.Image();
       let item = this.getCard(data, rate);
-      console.log("got item " + item);
       snek.get(`${Constants.db}images/${item}.png`).then(r => {
         card.onerror = reject;
         card.onload = () => {
@@ -65,8 +60,6 @@ module.exports = class GachaCommand extends Command {
   }
   roll10 (ctx, data) {
     let results = Array(10).fill('');
-    console.log("rolling");
-    console.log(data);
     results = results.map((item, index) => {
       if (index < 5) index = [index * 129, 0];
       else index = [(index - 5) * 129, 222];
@@ -92,6 +85,7 @@ module.exports = class GachaCommand extends Command {
       } else {
         if (typeof args[0] != "undefined" && gachas.indexOf(args[0].toLowerCase()) > -1) {
           r = r[args[0].toLowerCase()];
+          chosen_gacha = args[0].toLowerCase();
           if (args[1] == "yolo") {
             yolo_flag = true;
           }
@@ -106,7 +100,7 @@ module.exports = class GachaCommand extends Command {
           const canvas = new Canvas(129, 222);
           const ctx = canvas.getContext('2d');
           this.roll1(ctx, r, [0, 0]).then((result) => {
-            message.channel.send(`The results are in, you got (card IDs):\`\`\`\n${result}\`\`\``, {file: {attachment: canvas.toBuffer(), name: "result.png"}});
+            message.channel.send(`The results are in after rolling on the '${chosen_gacha}' banner, you got (card IDs):\`\`\`\n${result}\`\`\``, {file: {attachment: canvas.toBuffer(), name: "result.png"}});
           });
         } else {
           let time = this.cooldown[message.author.id] - message.createdTimestamp + 900000;
@@ -121,7 +115,7 @@ module.exports = class GachaCommand extends Command {
             const ctx = canvas.getContext('2d');
             this.roll10(ctx, r).then((results) => {
               results = results.slice(0, 5).join(' | ') + "\n" + results.slice(5).join(' | ');
-              message.channel.send(`The results are in, are you salty or are you happy? Here's what you got (card IDs):\`\`\`\n${results}\`\`\``, {file: {attachment: canvas.toBuffer(), name: "result.png"}});
+              message.channel.send(`The results are in after rolling on the '${chosen_gacha}' banner, are you salty or are you happy? Here's what you got (card IDs):\`\`\`\n${results}\`\`\``, {file: {attachment: canvas.toBuffer(), name: "result.png"}});
             });
           }
         }
