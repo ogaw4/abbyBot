@@ -10,37 +10,25 @@ module.exports = class FGOMasterCommand extends Command {
       help: "Get the current JP Master Missions and recommended spots."
     });
   }
-  async run(message, args, prefix) {
-    Promise.all([
-      snek.get('https://fate-go.cirnopedia.org/master_mission.php'),
-      snek.get('https://fate-go.cirnopedia.org/master_mission_us.php')
-    ]).then(r => {
-      let data = r[0].text.match(/id="mini(?:(?!<\/table)[\s\S])+/g)[0].match(/desc">\n.+\n.+/g).map(item => {
-        return '- ' + item.slice(7).split('\n')[1].replace(/\t{2,}/g, '');;
-      });
-      let fields = [];
-      r.forEach((i, ind) => {
-        i = i.text.match(/id="recommended_current(?:(?!id="other)[\s\S])+/g)[0];
-        i.split('<spanh>').slice(1).forEach(rec => {
-          let name = `Recommended Area ${ind ? '(EN)' : '(JP)'}: ${ rec.match(/<\/font>[^<]+<font/)[0].slice(8, -6) }`;
-          let value = [];
-          args = rec.match(/desc">.+|<td>.+<br>.+/g);
-          for (let index = 0; index < args.length; index += 3) {
-            value.push(`- ${args[index + 2].slice(4).replace(':<br>', ' - ')}: ${args[index + 1].slice(6).replace(/<br>/g, ' - ')}`);
-          }
-          value = value.join('\n') + "\n\u200b";
-          fields.push( { name, value } );
-        })
-      });
-      fields.unshift({
-        name: "Translation for JP:",
-        value: data.join('\n') + "\n\u200b"
-      });
-      fields[fields.length - 1].value = fields[fields.length - 1].value.slice(0, -2);
-      message.channel.send('', { embed: {
-        title: "Master Missions for this week",
+  run(message, args, prefix) {
+
+    snek.get(`${Constants.db}gatcha.json`).then(r => {
+      let jp_missions = r["jp-missions"];
+      let jp_rec = r["jp-rec"];
+      let fields = []; 
+      fields.push({
+        name: "This week's missions: ",
+        value: jp_missions.join('\n') + "\n\u200b"
+      })
+      fields.push({
+        name: "Recommended Quests: ",
+        value: jp_rec.join('\n') + "\n\u200b"
+      })
+      message.channel.send('', {embed: {
+        title: "JP Master Missions",
         fields
-      }});
-    });
+      }})
+    }
+    );
   }
 }
