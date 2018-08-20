@@ -11,7 +11,7 @@ module.exports = class FGOMasterCommand extends Command {
     });
   }
   run(message, args, prefix) {    
-    snek.get(`${Constants.db}gatcha.json`).then(r => {
+    snek.get(`${Constants.db}missions.json`).then(r => {
       r = JSON.parse(r.text);
       console.log(r);
       let jp_missions = r["na-missions"];
