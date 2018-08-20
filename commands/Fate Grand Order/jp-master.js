@@ -13,6 +13,7 @@ module.exports = class FGOMasterCommand extends Command {
   run(message, args, prefix) {
 
     snek.get(`${Constants.db}gatcha.json`).then(r => {
+      r = JSON.parse(r.text);
       let jp_missions = r["jp-missions"];
       let jp_rec = r["jp-rec"];
       let fields = []; 
