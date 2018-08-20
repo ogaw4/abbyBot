@@ -43,10 +43,15 @@ module.exports = class GachaCommand extends Command {
     return item;
   } 
   roll1 (ctx, data, pos, rate) {
+    console.log("rolling one");
+    console.log(data);
+    console.log(pos);
+    console.log(rate);
     return new Promise((resolve, reject) => {
       rate = rate || Constants.rate.gacha.Rest;
       let card = new Canvas.Image();
       let item = this.getCard(data, rate);
+      console.log("got item " + item);
       snek.get(`${Constants.db}images/${item}.png`).then(r => {
         card.onerror = reject;
         card.onload = () => {
@@ -60,6 +65,8 @@ module.exports = class GachaCommand extends Command {
   }
   roll10 (ctx, data) {
     let results = Array(10).fill('');
+    console.log("rolling");
+    console.log(data);
     results = results.map((item, index) => {
       if (index < 5) index = [index * 129, 0];
       else index = [(index - 5) * 129, 222];
@@ -108,6 +115,7 @@ module.exports = class GachaCommand extends Command {
            message.channel.send(`${cdMess} You can only use this command once every 15 minutes. Please wait for ${Math.floor(time / 60000)} minutes and ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
             {file: {attachment: `${Constants.db}images/abbystop.png`, name: "stop.png"}});
           } else {
+            console.log("doing 10 roll");
             this.cooldown[message.author.id] = message.createdTimestamp;
             const canvas = new Canvas(645, 444);
             const ctx = canvas.getContext('2d');
