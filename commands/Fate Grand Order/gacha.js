@@ -62,10 +62,13 @@ module.exports = class GachaCommand extends Command {
     let results = Array(10).fill('');
     let gsr_idx = Math.floor(Math.random() * 10);
     let gs_idx = Math.floor(Math.random() * 10);
+    console.log("guaranteed servant idx " + gs_idx);
+    console.log("guaranteed SR idx " + gsr_idx);
     results = results.map((item, idx) => {
       var index = [];
       if (idx < 5) index = [idx * 129, 0];
       else index = [(idx - 5) * 129, 222];
+      console.log("idx " + idx);
       if (idx == gsr_idx) return this.roll1(ctx, data, index, Constants.rate.gacha.GSR);
       if (idx == gs_idx) return this.roll1(ctx, data, index, Constants.rate.gacha.GS);
       return this.roll1(ctx, data, index);
