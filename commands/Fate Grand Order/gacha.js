@@ -63,6 +63,8 @@ module.exports = class GachaCommand extends Command {
     let results = Array(10).fill('');
     let gsr_idx = Math.floor(Math.random() * 10);
     let gs_idx = Math.floor(Math.random() * 10);
+    if(gs_idx == gsr_idx) gs_idx = gsr_idx + 1;
+    if(gs_idx > 9) gs_idx = gs_idx - 2;
     results = results.map((item, idx) => {
       var index = [];
       if (idx < 5) index = [idx * 129, 0];
