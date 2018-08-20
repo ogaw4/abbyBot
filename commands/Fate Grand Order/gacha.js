@@ -73,14 +73,15 @@ module.exports = class GachaCommand extends Command {
 
     let canvas = "";
     let ctx = "";
-    let gachas = ["everything", "story", "jpsummer1", "jpsummer2", "jpsummer3", "jpmemories"]
     let yolo_flag = false;
+    let chosen_gacha = "everything";
     snek.get(`${Constants.db}gatcha.json`).then(r => {
       r = JSON.parse(r.text);
-      if (args[0] == "list") {
-        var keys = [];
-        for (var k in r) keys.push(k);
-        message.channel.send(`List of all available banners:\n${Array.from(keys).join(', ')}`);
+      var keys = [];
+      for (var k in r) keys.push(k);
+      let gachas = Array.from(keys);
+      if (args[0] == "list") {        
+        message.channel.send(`List of all available banners:\n${gachas.join(', ')}`);
       } else {
         if (typeof args[0] != "undefined" && gachas.indexOf(args[0].toLowerCase()) > -1) {
           r = r[args[0].toLowerCase()];
