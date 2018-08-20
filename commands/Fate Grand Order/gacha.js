@@ -40,6 +40,7 @@ module.exports = class GachaCommand extends Command {
     else if (dice <= rate["c5"]) item = 'CE/' + this.main.util.ARand(data.ce["5"]);
     else if (dice <= rate["c4"]) item = 'CE/' + this.main.util.ARand(data.ce["4"]);
     else if (dice <= rate["c3"]) item = 'CE/' + this.main.util.ARand(data.ce["3"]);
+    console.log(item);
     return item;
   } 
   roll1 (ctx, data, pos, rate) {
@@ -78,6 +79,7 @@ module.exports = class GachaCommand extends Command {
     let ctx = "";
     let yolo_flag = false;
     let chosen_gacha = "everything";
+    let roller = message.author;
     snek.get(`${Constants.db}gatcha.json`).then(r => {
       r = JSON.parse(r.text);
       var keys = [];
@@ -103,7 +105,7 @@ module.exports = class GachaCommand extends Command {
           const canvas = new Canvas(129, 222);
           const ctx = canvas.getContext('2d');
           this.roll1(ctx, r, [0, 0]).then((result) => {
-            message.channel.send(`The results are in after rolling on the '${chosen_gacha}' banner, you got (card IDs):\`\`\`\n${result}\`\`\``, {file: {attachment: canvas.toBuffer(), name: "result.png"}});
+            message.channel.send(`The results are in after rolling on the '${chosen_gacha}' banner, ${roller} got (card IDs):\`\`\`\n${result}\`\`\``, {file: {attachment: canvas.toBuffer(), name: "result.png"}});
           });
         } else {
           let time = this.cooldown[message.author.id] - message.createdTimestamp + 900000;
@@ -117,7 +119,7 @@ module.exports = class GachaCommand extends Command {
             const ctx = canvas.getContext('2d');
             this.roll10(ctx, r).then((results) => {
               results = results.slice(0, 5).join(' | ') + "\n" + results.slice(5).join(' | ');
-              message.channel.send(`The results are in after rolling on the '${chosen_gacha}' banner, are you salty or are you happy? Here's what you got (card IDs):\`\`\`\n${results}\`\`\``, {file: {attachment: canvas.toBuffer(), name: "result.png"}});
+              message.channel.send(`The results are in after rolling on the '${chosen_gacha}' banner, are you salty or are you happy? Here's what ${roller} got (card IDs):\`\`\`\n${results}\`\`\``, {file: {attachment: canvas.toBuffer(), name: "result.png"}});
             });
           }
         }

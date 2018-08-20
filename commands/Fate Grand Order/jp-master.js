@@ -5,9 +5,9 @@ const snek = require('snekfetch');
 module.exports = class FGOMasterCommand extends Command {
   constructor(main) {
     super(main, {
-      name: "master",
+      name: "jp-master",
       category: "Fate Grand Order",
-      help: "Get the current Master Missions."
+      help: "Get the current JP Master Missions and recommended spots."
     });
   }
   async run(message, args, prefix) {
