@@ -82,7 +82,7 @@ module.exports = class GachaCommand extends Command {
         for (var k in r) keys.push(k);
         message.channel.send(`List of all available banners:\n${Array.from(keys).join(', ')}`);
       } else {
-        if (args && gachas.indexOf(args[0].toLowerCase()) > -1) {
+        if (typeof args[0] != "undefined" && gachas.indexOf(args[0].toLowerCase()) > -1) {
           r = r[args[0].toLowerCase()];
           if (args[1] == "yolo") {
             yolo_flag = true;
@@ -90,7 +90,7 @@ module.exports = class GachaCommand extends Command {
         } else {
           r = r["everything"];
           if (args[0] == "yolo") {
-            yolo_flage = true;
+            yolo_flag = true;
           }
         }
 
