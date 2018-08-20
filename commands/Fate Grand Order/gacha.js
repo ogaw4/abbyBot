@@ -60,12 +60,14 @@ module.exports = class GachaCommand extends Command {
   }
   roll10 (ctx, data) {
     let results = Array(10).fill('');
-    results = results.map((item, index) => {
-      if (index < 5) index = [index * 129, 0];
-      else index = [(index - 5) * 129, 222];
-      console.log(index);
-      if (index == 0) return this.roll1(ctx, data, index, Constants.rate.gacha.GSR);
-      if (index == 1) return this.roll1(ctx, data, index, Constants.rate.gacha.GS);
+    let gsr_idx = Math.floor(Math.random() * 10);
+    let gs_idx = Math.floor(Math.random() * 10);
+    results = results.map((item, idx) => {
+      var index = [];
+      if (idx < 5) index = [idx * 129, 0];
+      else index = [(idx - 5) * 129, 222];
+      if (idx == gsr_idx) return this.roll1(ctx, data, index, Constants.rate.gacha.GSR);
+      if (idx == gs_idx) return this.roll1(ctx, data, index, Constants.rate.gacha.GS);
       return this.roll1(ctx, data, index);
     });
     return Promise.all(results);
