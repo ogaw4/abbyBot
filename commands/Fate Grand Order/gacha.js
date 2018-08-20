@@ -109,7 +109,6 @@ module.exports = class GachaCommand extends Command {
            message.channel.send(`${cdMess} You can only use this command once every 15 minutes. Please wait for ${Math.floor(time / 60000)} minutes and ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
             {file: {attachment: `${Constants.db}images/abbystop.png`, name: "stop.png"}});
           } else {
-            console.log("doing 10 roll");
             this.cooldown[message.author.id] = message.createdTimestamp;
             const canvas = new Canvas(645, 444);
             const ctx = canvas.getContext('2d');
