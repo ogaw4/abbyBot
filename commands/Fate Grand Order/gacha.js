@@ -63,11 +63,10 @@ module.exports = class GachaCommand extends Command {
     results = results.map((item, index) => {
       if (index < 5) index = [index * 129, 0];
       else index = [(index - 5) * 129, 222];
+      console.log(index);
       if (index == 0) return this.roll1(ctx, data, index, Constants.rate.gacha.GSR);
       if (index == 1) return this.roll1(ctx, data, index, Constants.rate.gacha.GS);
-      var res = this.roll1(ctx, data, index);
-      console.log(res);
-      return res;
+      return this.roll1(ctx, data, index);
     });
     return Promise.all(results);
   }
