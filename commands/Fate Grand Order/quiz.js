@@ -71,12 +71,14 @@ module.exports = class FGOQuizCommand extends Command {
                 message.channel.send(`${right} **Congratulations ${m.author}!** ${right}\nThe right answer is **${r.name}**!`);
                 this.quizStatus[message.channel.id] = 0;
                 collector.stop();
+                if (global.gc) { global.gc(); }
               } else if (m.content.toLowerCase() == "stoppu" && (m.member.hasPermission('MANAGE_GUILD') || m.member.id == quiz_init_owner)) {
                 let guild = message.guild;
                 let right = guild.emojis.find("name", "AbbyStronk");
                 message.channel.send(`Quiz aborted! ${right}`);
                 this.quizStatus[message.channel.id] = 0;
                 collector.stop();
+                if (global.gc) { global.gc(); }
               } else {
                 m.react("457576115381469195");
               }
@@ -90,9 +92,11 @@ module.exports = class FGOQuizCommand extends Command {
               message.channel.send(`${thonk} 5 minutes have passed and no one got it right... The correct answer was **${r.name}**...`);
               this.quizStatus[message.channel.id] = 0;
             }
-          })
+          });
 
-        })
+          if (global.gc) { global.gc(); }
+
+        });
       });
     }
   }
