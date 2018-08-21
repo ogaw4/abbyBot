@@ -17,7 +17,8 @@ module.exports = class AlignmentCommand extends Command {
           desc: "Should be a number. This is optional and will be 1 if omitted."
         }
       ],
-      help: "Search for servants with a specific alignment."
+      help: "Search for servants with a specific alignment.",
+      alias: "align"
     })
   }
   run(message, args, prefix) {

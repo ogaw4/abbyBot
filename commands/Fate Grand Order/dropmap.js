@@ -13,7 +13,8 @@ module.exports = class DropMapCommand extends Command {
           desc: "The name of the map to display (case insensitive)\nOptional, omit to display the list of all available maps."
         }
       ],
-      help: "Get a certain drop map."
+      help: "Get a certain drop map.",
+      alias: "dmap"
     });
   }
   run(message, args, prefix) {

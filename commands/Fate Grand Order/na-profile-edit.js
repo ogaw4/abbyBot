@@ -27,7 +27,8 @@ module.exports = class FGOUSProfileEditCommand extends Command {
           desc: "Privacy Setting for your profile. Format: `privacy: true/false`. If set to `false`, everyone see your profile. Optional, defaults to false."
         }
       ],
-      caseSensitive: true
+      caseSensitive: true,
+      alias: "na-edit"
     });
   }
   run(message, args, prefix) {

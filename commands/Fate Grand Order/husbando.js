@@ -6,7 +6,8 @@ module.exports = class FGOHusbandoCommand extends Command {
     super(main, {
       name: "husbando",
       category: "Fate Grand Order",
-      help: "Marry a random male Servant in Fate Grand Order!\n\nCurrent Rate: 5% 5* | 15% 4* | 30% 3* | 25% 2* | 25% 1*"
+      help: "Marry a random male Servant in Fate Grand Order!\n\nCurrent Rate: 5% 5* | 15% 4* | 30% 3* | 25% 2* | 25% 1*",
+      alias: "husb"
     });
     this.cooldown = {};
     this.cdMessages = ["Not that fast!", "Polygamy is bad civilization!", "Do we have a Mata Hari over here?", "How many husbandos do you need?",

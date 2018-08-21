@@ -27,7 +27,8 @@ module.exports = class FGOProfileEditCommand extends Command {
           desc: "Privacy Setting for your profile. Format: `privacy: true/false`. If set to `false`, everyone see your profile. Optional, default to false"
         }
       ],
-      caseSensitive: true
+      caseSensitive: true,
+      alias: "jp-edit"
     });
   }
   run(message, args, prefix) {
