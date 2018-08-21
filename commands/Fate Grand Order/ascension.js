@@ -14,7 +14,7 @@ module.exports = class FGOAscensionMatsCommand extends Command {
           desc: "The search term. Can be Servant's name, or Servant ID. In case of Servant ID, add `id:` in front of the ID you want to get.\n\n**Example:** id:001.5 would get the servant with ID 1.5."
         }
       ],
-      alias: "asc"
+      alias: ["asc"]
     });
   }
   run(message, args, prefix) {

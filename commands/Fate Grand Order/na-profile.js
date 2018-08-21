@@ -14,7 +14,7 @@ module.exports = class FGOUSProfileCommand extends Command {
           desc: "Optional. The bot will show the player's profile if this argument is provided and the player's privacy setting is off. Can use User Mention or User ID for this argument."
         }
       ], 
-      alias: "na"
+      alias: ["na"]
     });
   }
   run(message, args, prefix) {

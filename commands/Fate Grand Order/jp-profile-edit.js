@@ -28,7 +28,7 @@ module.exports = class FGOProfileEditCommand extends Command {
         }
       ],
       caseSensitive: true,
-      alias: "jp-edit"
+      alias: ["jp-edit"]
     });
   }
   run(message, args, prefix) {

@@ -28,7 +28,7 @@ module.exports = class FGOUSProfileEditCommand extends Command {
         }
       ],
       caseSensitive: true,
-      alias: "na-edit"
+      alias: ["na-edit"]
     });
   }
   run(message, args, prefix) {

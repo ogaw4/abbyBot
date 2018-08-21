@@ -9,7 +9,7 @@ module.exports = class FGOQuizCommand extends Command {
       name: "quiz",
       category: "Fate Grand Order",
       help: "Get a quiz of a random Servant in Fate Grand Order, you'll have 5 minutes to answer!",
-      alias: "q"
+      alias: ["q"]
     });
     this.quizStatus = {};
     this.cooldown = {};

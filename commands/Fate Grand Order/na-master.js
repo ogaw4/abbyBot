@@ -8,7 +8,7 @@ module.exports = class FGOMasterCommand extends Command {
       name: "na-master",
       category: "Fate Grand Order",
       help: "Get the current NA Master Missions and recommended spots.",
-      alias: "nmas"
+      alias: ["nmas"]
     });
   }
   run(message, args, prefix) {    

@@ -13,7 +13,7 @@ module.exports = class ItemSearchCommand extends Command {
           desc: "Search term for item, can be either name or item ID. Omit this to get a list of all items."
         }
       ],
-      alias: "i"
+      alias: ["i"]
     });
   }
   run(message, args, prefix) {

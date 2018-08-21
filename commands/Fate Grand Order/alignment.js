@@ -18,7 +18,7 @@ module.exports = class AlignmentCommand extends Command {
         }
       ],
       help: "Search for servants with a specific alignment.",
-      alias: "align"
+      alias: ["align"]
     })
   }
   run(message, args, prefix) {

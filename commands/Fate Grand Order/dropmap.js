@@ -14,7 +14,7 @@ module.exports = class DropMapCommand extends Command {
         }
       ],
       help: "Get a certain drop map.",
-      alias: "dmap"
+      alias: ["dmap"]
     });
   }
   run(message, args, prefix) {
