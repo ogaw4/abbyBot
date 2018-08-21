@@ -28,7 +28,9 @@ module.exports = class HelpCommand extends Command {
       this.main.commands.forEach(item => {
         if (!item.devOnly) {
           if (!categories[item.category]) categories[item.category] = [];
-          categories[item.category].push(item.name);
+          if (!(categories[item.categories].indexOf(item.name) > -1)) {
+            categories[item.category].push(item.name);
+          }
         }
       });
       for (let item in categories) {
