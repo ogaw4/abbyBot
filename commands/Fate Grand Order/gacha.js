@@ -104,11 +104,12 @@ module.exports = class GachaCommand extends Command {
         }
 
         if (yolo_flag) {
-          const canvas = new Canvas(129, 222);
-          const ctx = canvas.getContext('2d');
+          var canvas = new Canvas(129, 222);
+          var ctx = canvas.getContext('2d');
           this.roll1(ctx, r, [0, 0]).then((result) => {
             message.channel.send(`The results are in after rolling on the '${chosen_gacha}' banner, ${roller} got (card IDs):\`\`\`\n${result}\`\`\``, {file: {attachment: canvas.toBuffer(), name: "result.png"}});
           });
+          if (global.gc) { global.gc(); }
         } else {
           let time = this.cooldown[message.author.id] - message.createdTimestamp + 900000;
           if (time > 0 && message.author.id != this.main.config.ownerID) {
@@ -117,12 +118,13 @@ module.exports = class GachaCommand extends Command {
             {file: {attachment: `${Constants.db}images/abbystop.png`, name: "stop.png"}});
           } else {
             this.cooldown[message.author.id] = message.createdTimestamp;
-            const canvas = new Canvas(645, 444);
-            const ctx = canvas.getContext('2d');
+            var canvas = new Canvas(645, 444);
+            var ctx = canvas.getContext('2d');
             this.roll10(ctx, r).then((results) => {
               results = results.slice(0, 5).join(' | ') + "\n" + results.slice(5).join(' | ');
               message.channel.send(`The results are in after rolling on the '${chosen_gacha}' banner, are you salty or are you happy? Here's what ${roller} got (card IDs):\`\`\`\n${results}\`\`\``, {file: {attachment: canvas.toBuffer(), name: "result.png"}});
             });
+            if (global.gc) { global.gc(); }
           }
         }
       }
