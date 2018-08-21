@@ -21,10 +21,10 @@ module.exports = class FGOQuizCommand extends Command {
       return;
     }
 
-    let time = this.cooldown[message.author.id] - message.createdTimestamp + 300000;
+    let time = this.cooldown[message.author.id] - message.createdTimestamp + 60000;
     if (time > 0 && message.author.id != this.main.config.ownerID) {
      let cdMess = this.main.util.ARand(this.cdMessages);
-     message.channel.send(`${cdMess} You can only use this command once every 5 minutes. Please wait for ${Math.floor(time / 60000)} minutes and ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
+     message.channel.send(`${cdMess} You can only use this command once every minute. Please wait for ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
       {file: {attachment: `${Constants.db}images/abbystop.png`, name: "stop.png"}});
     } else {
       this.cooldown[message.author.id] = message.createdTimestamp;
