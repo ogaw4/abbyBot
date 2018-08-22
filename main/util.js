@@ -92,7 +92,9 @@ module.exports = class Util {
   fgoGacha(sex) {
     return new Promise((resolve, reject) => { 
       let chance = Math.random() * 100;
-      let rate = Constants.rate.fgo;
+      let rate = [];
+      if (sex == "M") rate = Constants.rate.fgom; 
+      if (sex == "F") rate = Constants.rate.fgo;
       if (chance <= 0.2 && sex == "M") chance = "0";
       else if (chance <= rate[0]) chance = "5";
       else if (chance <= rate[1]) chance = "4";

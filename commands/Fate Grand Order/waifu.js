@@ -6,7 +6,7 @@ module.exports = class FGOWaifuCommand extends Command {
     super(main, {
       name: "waifu",
       category: "Fate Grand Order",
-      help: "Marry a random female Servant in Fate Grand Order!\n\nCurrent Rate: 5% 5* | 15% 4* | 30% 3* | 25% 2* | 25% 1*"
+      help: "Marry a random female Servant in Fate Grand Order!\n\nCurrent Rate: 5% 5* | 30% 4* | 35% 3* | 15% 2* | 15% 1*"
     });
     this.cooldown = {};
     this.cdMessages = ["Not that fast!", "Polygamy is bad civilization!", "Do we have a Fergus over here?", "How many waifus do you need?",
