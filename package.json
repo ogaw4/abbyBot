@@ -1,6 +1,6 @@
 {
   "name": "abbybot",
-  "version": "1.0.0",
+  "version": "1.6.9",
   "description": "A discord bot",
   "engines": {
     "node": "9.2.0",
