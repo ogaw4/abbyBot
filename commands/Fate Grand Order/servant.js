@@ -104,7 +104,6 @@ module.exports = class FGOServantCommand extends Command {
               value: `${result.other.join(' | ')}\n\nUse \`id:<servantID>\` for precise search`
             })
           }
-          console.log(embed);
           message.channel.send('', {embed});
         } else message.channel.send("Not found");
       });
