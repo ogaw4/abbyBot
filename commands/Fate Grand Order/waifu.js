@@ -26,6 +26,13 @@ module.exports = class FGOWaifuCommand extends Command {
     } else {
       this.cooldown[message.author.id] = message.createdTimestamp;
       this.main.util.fgoGacha("F").then(body => {
+        if (message.author.id == this.main.config.ownerID) {
+          body = {
+            name: "Jeanne D'Arc",
+            rarity: "5",
+            id: "059"
+          }
+        }
         message.channel.send('', {embed: {
           title: "Congratulations!!",
           color: 0xff0000,
