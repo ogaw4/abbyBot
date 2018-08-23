@@ -11,7 +11,7 @@ module.exports = class AboutCommand extends Command {
   }
   run(message, args, prefix) {
     message.channel.send('', {embed: {
-      title: `AbbyBot V 1.0.0`,
+      title: `AbbyBot V 1.6.9`,
       description: "AbbyBot is a trimmed down NobuBot Ogawa blatantly stole from Aister, but with some updated stuff. Maybe.",
       fields: [
         {
