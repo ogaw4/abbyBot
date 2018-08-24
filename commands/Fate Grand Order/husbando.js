@@ -22,8 +22,13 @@ module.exports = class FGOHusbandoCommand extends Command {
     let time = this.cooldown[message.author.id] - message.createdTimestamp + 900000;
     if (time > 0  && message.author.id != this.main.config.ownerID) {
         let cdMess = this.main.util.ARand(this.cdMessages);
-        message.channel.send(`${cdMess} You can only use this command once every 15 minutes!! Please wait for ${Math.floor(time / 60000)} minutes and ${Math.ceil(time / 1000) % 60} seconds.`, 
+       if (this.main.util.rand(0, 1)) {
+         message.channel.send(`${cdMess} You can only use this command once every 15 minutes. Please wait for ${Math.floor(time / 60000)} minutes and ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
           {file: {attachment: `${Constants.db}images/abbystop.png`, name: "stop.png"}});
+        } else {
+         message.channel.send(`${cdMess} You can only use this command once every 15 minutes. Please wait for ${Math.floor(time / 60000)} minutes and ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
+          {file: {attachment: `${Constants.db}images/abbyno.png`, name: "stop.png"}});            
+        }
     } else {
       this.cooldown[message.author.id] = message.createdTimestamp;
       this.main.util.fgoGacha("M").then(body => {

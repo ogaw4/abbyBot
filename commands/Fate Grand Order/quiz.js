@@ -24,8 +24,13 @@ module.exports = class FGOQuizCommand extends Command {
     let time = this.cooldown[message.author.id] - message.createdTimestamp + 60000;
     if (time > 0 && message.author.id != this.main.config.ownerID) {
      let cdMess = this.main.util.ARand(this.cdMessages);
-     message.channel.send(`${cdMess} You can only use this command once every minute. Please wait for ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
-      {file: {attachment: `${Constants.db}images/abbystop.png`, name: "stop.png"}});
+     if (this.main.util.rand(0, 1)) {
+       message.channel.send(`${cdMess} You can only use this command once every minute. Please wait for ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
+        {file: {attachment: `${Constants.db}images/abbystop.png`, name: "stop.png"}});
+      } else {
+       message.channel.send(`${cdMess} You can only use this command once every minute. Please wait for ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
+        {file: {attachment: `${Constants.db}images/abbyno.png`, name: "stop.png"}});            
+      }
     } else {
       this.cooldown[message.author.id] = message.createdTimestamp;
       snek.get(`${Constants.db}fgo_main.json`).then(r => {
@@ -38,6 +43,7 @@ module.exports = class FGOQuizCommand extends Command {
         if (Math.random() <= 0.5) {
           r = this.main.util.ARand(servantList);
           console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.name);
+          console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.alias..join(', '));
           result = {
             title: "Which servant has this Noble Phantasm?",
             description: `\u200b\n${r.NP.split('\n').slice(0, 2).join('\n').replace(/\([^\)]+\) /g, '')}\n\n You have 5 minutes to answer, good luck!`
@@ -47,6 +53,7 @@ module.exports = class FGOQuizCommand extends Command {
             r = this.main.util.ARand(servantList);
           } while (r.desc == "None");
           console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.name);
+          console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.alias..join(', '));
           result = {
             title: "Which servant is this?",
             description: `\u200b\n${r.desc.replace(new RegExp(r.name, 'g'), '[REMOVED]')} You have 5 minutes to answer, good luck!`
