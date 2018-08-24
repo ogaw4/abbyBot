@@ -1,4 +1,5 @@
 const Command = require('../../main/command');
+const Constants = require('../../main/const');
 
 module.exports = class GoodGirlCommand extends Command {
   constructor(main) {
