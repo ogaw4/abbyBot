@@ -13,7 +13,7 @@ module.exports = class HugCommand extends Command {
     let embed = {
       title: "Source",
       color: 0xe55fbe,
-      description: `Yaaaay!! (*≧∀≦*)`,
+      description: `Yaaaay!! (\*≧∀≦\*)`,
       url: "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=69950901",
       image: {url: "attachment://image.png"}
     }
