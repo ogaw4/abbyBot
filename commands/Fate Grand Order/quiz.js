@@ -42,8 +42,8 @@ module.exports = class FGOQuizCommand extends Command {
         }
         if (Math.random() <= 0.5) {
           r = this.main.util.ARand(servantList);
-          console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.name);
-          console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.alias.join(', '));
+          //console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.name);
+          //console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.alias.join(', '));
           result = {
             title: "Which servant has this Noble Phantasm?",
             description: `\u200b\n${r.NP.split('\n').slice(0, 2).join('\n').replace(/\([^\)]+\) /g, '')}\n\n You have 5 minutes to answer, good luck!`
@@ -52,8 +52,8 @@ module.exports = class FGOQuizCommand extends Command {
           do {
             r = this.main.util.ARand(servantList);
           } while (r.desc == "None");
-          console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.name);
-          console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.alias.join(', '));
+          //console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.name);
+          //console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.alias.join(', '));
           result = {
             title: "Which servant is this?",
             description: `\u200b\n${r.desc.replace(new RegExp(r.name, 'g'), '[REMOVED]')} You have 5 minutes to answer, good luck!`
@@ -75,6 +75,7 @@ module.exports = class FGOQuizCommand extends Command {
               if (aliases.indexOf(m.content.toLowerCase()) > -1) {
                 let guild = message.guild;
                 let right = guild.emojis.find("name", "AbbySmile");
+                console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + `${m.author} won, quiz ended`);
                 message.channel.send(`${right} **Congratulations ${m.author}!** ${right}\nThe right answer is **${r.name}**!`);
                 this.quizStatus[message.channel.id] = 0;
                 collector.stop();
