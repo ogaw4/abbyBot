@@ -75,7 +75,7 @@ module.exports = class FGOQuizCommand extends Command {
               if (aliases.indexOf(m.content.toLowerCase()) > -1) {
                 let guild = message.guild;
                 let right = guild.emojis.find("name", "AbbySmile");
-                console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + `${m.author} won, quiz ended`);
+                console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + `${m.author.username} won, quiz ended`);
                 message.channel.send(`${right} **Congratulations ${m.author}!** ${right}\nThe right answer is **${r.name}**!`);
                 this.quizStatus[message.channel.id] = 0;
                 collector.stop();
