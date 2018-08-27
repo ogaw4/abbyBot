@@ -16,7 +16,7 @@ module.exports = class FGOQuizCommand extends Command {
     this.cdMessages = ["Not that fast!", "Give me a break...", "Haven't you played enough already?", "No spam!"];
   }
   run(message, args, prefix) {
-    if (this.quizStatus[message.channel.id]) {
+    if (this.quizStatus[message.channel.id] || message.author.id != this.main.config.ownerID) {
       message.channel.send("Someone is playing already, please wait until it finishes before starting a new one, okay?");
       return;
     }
