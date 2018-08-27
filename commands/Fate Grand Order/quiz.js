@@ -16,7 +16,7 @@ module.exports = class FGOQuizCommand extends Command {
     this.cdMessages = ["Not that fast!", "Give me a break...", "Haven't you played enough already?", "No spam!"];
   }
   run(message, args, prefix) {
-    if (this.quizStatus[message.channel.id] || message.author.id != this.main.config.ownerID) {
+    if (this.quizStatus[message.channel.id]) {
       message.channel.send("Someone is playing already, please wait until it finishes before starting a new one, okay?");
       return;
     }
@@ -42,8 +42,8 @@ module.exports = class FGOQuizCommand extends Command {
         }
         if (Math.random() <= 0.5) {
           r = this.main.util.ARand(servantList);
-          //console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.name);
-          //console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.alias.join(', '));
+          console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.name);
+          console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.alias.join(', '));
           result = {
             title: "Which servant has this Noble Phantasm?",
             description: `\u200b\n${r.NP.split('\n').slice(0, 2).join('\n').replace(/\([^\)]+\) /g, '')}\n\n You have 5 minutes to answer, good luck!`
@@ -52,8 +52,8 @@ module.exports = class FGOQuizCommand extends Command {
           do {
             r = this.main.util.ARand(servantList);
           } while (r.desc == "None");
-          //console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.name);
-          //console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.alias.join(', '));
+          console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.name);
+          console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.alias.join(', '));
           result = {
             title: "Which servant is this?",
             description: `\u200b\n${r.desc.replace(new RegExp(r.name, 'g'), '[REMOVED]')} You have 5 minutes to answer, good luck!`
