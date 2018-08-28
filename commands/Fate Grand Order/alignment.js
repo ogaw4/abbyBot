@@ -36,14 +36,16 @@ module.exports = class AlignmentCommand extends Command {
       snek.get(`${Constants.db}fgo_main.json`).then(r => {
         let result = [];
         r = JSON.parse(r.text);
-        for (let id in Object.keys(r).sort()) {
-          if (r[id].alignment.toLowerCase().includes(searchTerm)) {
-            result.push({
-              name: r[id].name,
-              id: r[id].id
-            });
+        Object.keys(r).sort().forEach(
+          function(id) {
+            if (r[id].alignment.toLowerCase().includes(searchTerm)) {
+              result.push({
+                name: r[id].name,
+                id: r[id].id
+              });
+            }
           }
-        }
+        );
         if (result) {
           let maxPage = Math.ceil(result.length / 10);
           if (page > maxPage) page = maxPage;
