@@ -36,7 +36,7 @@ module.exports = class AlignmentCommand extends Command {
       snek.get(`${Constants.db}fgo_main.json`).then(r => {
         let result = [];
         r = JSON.parse(r.text);
-        for (let id in r) {
+        for (let id in Object.keys(r).sort()) {
           if (r[id].alignment.toLowerCase().includes(searchTerm)) {
             result.push({
               name: r[id].name,
