@@ -28,7 +28,7 @@ module.exports = class FGOQuizCommand extends Command {
       return;
     }
 
-    let time = this.cooldown - message.createdTimestamp + 5000;
+    let time = this.cooldown - message.createdTimestamp + 3000;
     let longTime = this.cooldown - message.createdTimestamp + 30000;
     var cdFlag = false;
     var otherPlayerFlag = false;
@@ -62,10 +62,10 @@ module.exports = class FGOQuizCommand extends Command {
         }
       } else {       
        if (this.main.util.rand(0, 1)) {
-         message.channel.send(`${cdMess} A quiz can only be done every 5 seconds. Please wait for ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
+         message.channel.send(`${cdMess} A quiz can only be done every 3 seconds. Please wait for ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
           {file: {attachment: `${Constants.db}images/abbystop.png`, name: "stop.png"}});
         } else {
-         message.channel.send(`${cdMess} A quiz can only be done every 5 seconds. Please wait for ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
+         message.channel.send(`${cdMess} A quiz can only be done every 3 seconds. Please wait for ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
           {file: {attachment: `${Constants.db}images/abbyno.png`, name: "stop.png"}});            
         }
      }
