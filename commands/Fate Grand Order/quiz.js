@@ -11,9 +11,9 @@ module.exports = class FGOQuizCommand extends Command {
       help: "Get a quiz of a random Servant in Fate Grand Order, you'll have 5 minutes to answer!",
       alias: ["q"]
     });
-    this.quizStatus = {};
-    this.cooldown = {};
-    this.lastAuthor = {}; 
+    this.quizStatus = false;
+    this.cooldown = 0;
+    this.lastAuthor = "none"; 
     this.cdMessages = ["Not that fast!", "Give me a break...", "Haven't you played enough already?", "No spam!"];
   }
   run(message, args, prefix) {
@@ -23,27 +23,27 @@ module.exports = class FGOQuizCommand extends Command {
       return;
     }
 
-    if (this.quizStatus[1]) {
+    if (this.quizStatus) {
       message.channel.send("Someone is playing already, please wait until it finishes before starting a new one, okay?");
       return;
     }
 
-    let time = this.cooldown[1] - message.createdTimestamp + 5000;
-    let longTime = this.cooldown[1] - message.createdTimestamp + 30000;
+    let time = this.cooldown - message.createdTimestamp + 5000;
+    let longTime = this.cooldown - message.createdTimestamp + 30000;
     var cdFlag = false;
     var otherPlayerFlag = false;
-    this.quizStatus[1] = true;
-    if (time < 0 && this.lastAuthor == message.author && longTime >= 0) {
+    this.quizStatus = true;
+    if (time < 0 && this.lastAuthor == message.author.username && longTime >= 0) {
       cdFlag = true;
       otherPlayerFlag = true;
     }
-    if (time < 0 && this.lastAuthor != message.author) {
+    if (time < 0 && this.lastAuthor != message.author.username) {
       cdFlag = false;
     }
     if (longTime < 0) cdFlag = false;
     if (message.author.id == this.main.config.ownerID) cdFlag = false; 
     if (cdFlag) {
-      this.quizStatus[1] = false;
+      this.quizStatus = false;
       let cdMess = this.main.util.ARand(this.cdMessages);
       if (otherPlayerFlag) {
         if (this.main.util.rand(0, 1)) {
@@ -63,8 +63,8 @@ module.exports = class FGOQuizCommand extends Command {
         }
      }
     } else {
-      this.cooldown[1] = message.createdTimestamp;
-      this.lastAuthor[1] = message.author;
+      this.cooldown = message.createdTimestamp;
+      this.lastAuthor = message.author.username;
       snek.get(`${Constants.db}fgo_main.json`).then(r => {
         r = JSON.parse(r.text);
         let servantList = [];
@@ -102,20 +102,20 @@ module.exports = class FGOQuizCommand extends Command {
           let aliases = r.alias.map(function(itm) { return itm.toLowerCase(); });
 
           collector.on('collect', (m, collector) => {
-            if (this.quizStatus[1]) {
+            if (this.quizStatus) {
               if (aliases.indexOf(m.content.toLowerCase()) > -1) {
                 let guild = message.guild;
                 let right = guild.emojis.find("name", "AbbySmile");
                 console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + `${m.author.username} won, quiz ended`);
                 message.channel.send(`${right} **Congratulations ${m.author}!** ${right}\nThe right answer is **${r.name}**!`);
-                this.quizStatus[message.channel.id] = 0;
+                this.quizStatus = false;
                 collector.stop();
                 // if (global.gc) { global.gc(); }
               } else if (m.content.toLowerCase() == "stoppu" && (m.member.hasPermission('MANAGE_GUILD') || m.member.id == quiz_init_owner)) {
                 let guild = message.guild;
                 let right = guild.emojis.find("name", "AbbyStronk");
                 message.channel.send(`Quiz aborted! ${right}`);
-                this.quizStatus[message.channel.id] = 0;
+                this.quizStatus = false;
                 collector.stop();
                 // if (global.gc) { global.gc(); }
               } else {
@@ -125,11 +125,11 @@ module.exports = class FGOQuizCommand extends Command {
           });
 
           collector.on('end', (collected, reason) => {
-            if (this.quizStatus[1]) {
+            if (this.quizStatus) {
               let guild = message.guild;
               let thonk = guild.emojis.find("name", "AbbyThink");
               message.channel.send(`${thonk} One minute has passed and no one got it right... The correct answer was **${r.name}**...`);
-              this.quizStatus[message.channel.id] = 0;
+              this.quizStatus = false;
             }
           });
 
