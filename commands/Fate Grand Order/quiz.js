@@ -33,7 +33,7 @@ module.exports = class FGOQuizCommand extends Command {
     var cdFlag = false;
     var otherPlayerFlag = false;
     this.quizStatus = true;
-    console.log("Time is " + str(time) + " and long time is " + longTime);
+    console.log("Time is " + time.toString() + " and long time is " + longTime.toString());
     console.log("last author was " + this.lastAuthor + " and current author is " + message.author.username);
     if (time < 0 && this.lastAuthor == message.author.username && longTime >= 0) {
       cdFlag = true;
