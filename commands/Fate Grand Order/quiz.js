@@ -85,7 +85,7 @@ module.exports = class FGOQuizCommand extends Command {
           console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.alias.join(', '));
           result = {
             title: "Which servant has this Noble Phantasm?",
-            description: `\u200b\n${r.NP.split('\n').slice(0, 2).join('\n').replace(/\([^\)]+\) /g, '')}\n\n You have 5 minutes to answer, good luck!`
+            description: `\u200b\n${r.NP.split('\n').slice(0, 2).join('\n').replace(/\([^\)]+\) /g, '')}\n\n You have 1 minutes to answer, good luck!`
           }
         } else {
           do {
@@ -95,7 +95,7 @@ module.exports = class FGOQuizCommand extends Command {
           console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.alias.join(', '));
           result = {
             title: "Which servant is this?",
-            description: `\u200b\n${r.desc.replace(new RegExp(r.name, 'g'), '[REMOVED]')}\n You have 1 minute to answer, good luck!`
+            description: `\u200b\n${r.desc.replace(new RegExp(r.name, 'g'), '[REMOVED]')}\n\n You have 1 minute to answer, good luck!`
           }
         }
         message.channel.send("", { embed: result }).then(() => {
