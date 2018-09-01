@@ -13,31 +13,58 @@ module.exports = class FGOQuizCommand extends Command {
     });
     this.quizStatus = {};
     this.cooldown = {};
+    this.lastAuthor = {}; 
     this.cdMessages = ["Not that fast!", "Give me a break...", "Haven't you played enough already?", "No spam!"];
   }
   run(message, args, prefix) {
+
     if (message.channel.name != "quiz-addiction") {
       message.channel.send("No quiz allowed outside of the addicts channel!");
       return;
     }
 
-    if (this.quizStatus[message.channel.id]) {
+    if (this.quizStatus[1]) {
       message.channel.send("Someone is playing already, please wait until it finishes before starting a new one, okay?");
       return;
     }
 
-    let time = this.cooldown[message.author.id] - message.createdTimestamp + 30000;
-    if (time > 0 && message.author.id != this.main.config.ownerID) {
-     let cdMess = this.main.util.ARand(this.cdMessages);
-     if (this.main.util.rand(0, 1)) {
-       message.channel.send(`${cdMess} You can only use this command once every 30 seconds. Please wait for ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
-        {file: {attachment: `${Constants.db}images/abbystop.png`, name: "stop.png"}});
-      } else {
-       message.channel.send(`${cdMess} You can only use this command once every 30 seconds. Please wait for ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
-        {file: {attachment: `${Constants.db}images/abbyno.png`, name: "stop.png"}});            
-      }
+    let time = this.cooldown[1] - message.createdTimestamp + 5000;
+    let longTime = this.cooldown[1] - message.createdTimestamp + 30000;
+    var cdFlag = false;
+    var otherPlayerFlag = false;
+    this.quizStatus[1] = true;
+    if (time < 0 && this.lastAuthor == message.author && longTime >= 0) {
+      cdFlag = true;
+      otherPlayerFlag = true;
+    }
+    if (time < 0 && this.lastAuthor != message.author) {
+      cdFlag = false;
+    }
+    if (longTime < 0) cdFlag = false;
+    if (message.author.id == this.main.config.ownerID) cdFlag = false; 
+    if (cdFlag) {
+      this.quizStatus[1] = false;
+      let cdMess = this.main.util.ARand(this.cdMessages);
+      if (otherPlayerFlag) {
+        if (this.main.util.rand(0, 1)) {
+         message.channel.send(`${cdMess} A quiz can only be done every 30 seconds if you're playing alone! Find a friend or please wait for ${Math.ceil(longtime / 1000) % 60} seconds to try again.`, 
+          {file: {attachment: `${Constants.db}images/abbystop.png`, name: "stop.png"}});
+        } else {
+         message.channel.send(`${cdMess} A quiz can only be done every 30 seconds if you're playing alone! Find a friend or please wait for ${Math.ceil(longtime / 1000) % 60} seconds to try again.`, 
+          {file: {attachment: `${Constants.db}images/abbyno.png`, name: "stop.png"}});            
+        }
+      } else {       
+       if (this.main.util.rand(0, 1)) {
+         message.channel.send(`${cdMess} A quiz can only be done every 5 seconds. Please wait for ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
+          {file: {attachment: `${Constants.db}images/abbystop.png`, name: "stop.png"}});
+        } else {
+         message.channel.send(`${cdMess} A quiz can only be done every 5 seconds. Please wait for ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
+          {file: {attachment: `${Constants.db}images/abbyno.png`, name: "stop.png"}});            
+        }
+     }
     } else {
-      this.cooldown[message.author.id] = message.createdTimestamp;
+      this.cooldown[1] = message.createdTimestamp;
+      this.lastAuthor[1] = message.author;
       snek.get(`${Constants.db}fgo_main.json`).then(r => {
         r = JSON.parse(r.text);
         let servantList = [];
@@ -61,13 +88,12 @@ module.exports = class FGOQuizCommand extends Command {
           console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + r.alias.join(', '));
           result = {
             title: "Which servant is this?",
-            description: `\u200b\n${r.desc.replace(new RegExp(r.name, 'g'), '[REMOVED]')} You have 5 minutes to answer, good luck!`
+            description: `\u200b\n${r.desc.replace(new RegExp(r.name, 'g'), '[REMOVED]')}\n You have 1 minute to answer, good luck!`
           }
         }
-        this.quizStatus[message.channel.id] = true;
         message.channel.send("", { embed: result }).then(() => {
           let collector = new Discord.MessageCollector(message.channel, m => true, {
-            time: 300000
+            time: 60000
           });
 
           let quiz_init_owner = message.member.id;
@@ -76,7 +102,7 @@ module.exports = class FGOQuizCommand extends Command {
           let aliases = r.alias.map(function(itm) { return itm.toLowerCase(); });
 
           collector.on('collect', (m, collector) => {
-            if (this.quizStatus[message.channel.id]) {
+            if (this.quizStatus[1]) {
               if (aliases.indexOf(m.content.toLowerCase()) > -1) {
                 let guild = message.guild;
                 let right = guild.emojis.find("name", "AbbySmile");
@@ -99,10 +125,10 @@ module.exports = class FGOQuizCommand extends Command {
           });
 
           collector.on('end', (collected, reason) => {
-            if (this.quizStatus[message.channel.id]) {
+            if (this.quizStatus[1]) {
               let guild = message.guild;
               let thonk = guild.emojis.find("name", "AbbyThink");
-              message.channel.send(`${thonk} 5 minutes have passed and no one got it right... The correct answer was **${r.name}**...`);
+              message.channel.send(`${thonk} One minute has passed and no one got it right... The correct answer was **${r.name}**...`);
               this.quizStatus[message.channel.id] = 0;
             }
           });
