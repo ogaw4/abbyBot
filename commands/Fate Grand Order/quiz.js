@@ -28,12 +28,12 @@ module.exports = class FGOQuizCommand extends Command {
       return;
     }
 
-    let time = this.cooldown - message.createdTimestamp + 7000;
+    let time = this.cooldown - message.createdTimestamp + 5000;
     let longTime = this.cooldown - message.createdTimestamp + 30000;
     var cdFlag = false;
     var otherPlayerFlag = false;
     this.quizStatus = true;
-    if (time < 0 && this.lastAuthor == message.author.username && longTime >= 0) {
+    if (this.lastAuthor == message.author.username && longTime >= 0) {
       cdFlag = true;
       otherPlayerFlag = true;      
     }
