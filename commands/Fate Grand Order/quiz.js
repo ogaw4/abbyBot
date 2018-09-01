@@ -38,12 +38,21 @@ module.exports = class FGOQuizCommand extends Command {
     if (time < 0 && this.lastAuthor == message.author.username && longTime >= 0) {
       cdFlag = true;
       otherPlayerFlag = true;
+      console.log("same author, short ok but long nok");
     }
     if (time < 0 && this.lastAuthor != message.author.username) {
+      console.log("different author, short time ok");
       cdFlag = false;
     }
-    if (longTime < 0) cdFlag = false;
-    if (message.author.id == this.main.config.ownerID) cdFlag = false; 
+    if (longTime < 0) { 
+      cdFlag = false;
+      console.log("long time negative");
+    }
+    if (message.author.id == this.main.config.ownerID) { 
+      cdFlag = false; 
+      console.log("owner");
+    }
+    console.log("flags are " + cdFlag.toString() + " and " + otherPlayerFlag.toString());
     if (cdFlag) {
       this.quizStatus = false;
       let cdMess = this.main.util.ARand(this.cdMessages);
