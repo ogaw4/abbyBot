@@ -25,11 +25,13 @@ module.exports = class GachaCommand extends Command {
       ]
     });
     this.cooldown = {};
+    this.cooldownYolo = {};
     this.cdMessages = ["Not that fast!", "No whaling allowed!", "Are you sure you have enough money?", "Going for NP5?",
      "Don't kill wallet-kun!", "Noo, I'm not on rate up right now!"];
   }
   resetCooldown(id) {
     this.cooldown[id] = 0;
+    this.cooldownYolo[id] = 0;
   }
   getCard(data, rate) {
     let dice = Math.floor(Math.random() * 100);
@@ -104,11 +106,30 @@ module.exports = class GachaCommand extends Command {
         }
 
         if (yolo_flag) {
-          var canvas = new Canvas(129, 222);
-          var ctx = canvas.getContext('2d');
-          this.roll1(ctx, r, [0, 0]).then((result) => {
-            message.channel.send(`The results are in after rolling on the '${chosen_gacha}' banner, ${roller} got (card IDs):\`\`\`\n${result}\`\`\``, {file: {attachment: canvas.toBuffer(), name: "result.png"}});
-          });
+          if (message.author.id == 83640682283012096) {
+            message.channel.send("Sorry Randicorn, the higher-ups said you're not allowed to yolo roll anymore.", {});
+          } else if (message.author.id == 163774851897753600) {
+            message.channel.send("Sorry Frostbite_, the higher-ups said you're not allowed to yolo roll anymore.", {});            
+          } else {
+            let time = this.cooldownYolo[message.author.id] - message.createdTimestamp + 60000;
+             if (time > 0 && message.author.id != this.main.config.ownerID) {
+              let cdMess = this.main.util.ARand(this.cdMessages);
+              if (this.main.util.rand(0, 1)) {
+               message.channel.send(`${cdMess} You can only use this command once every 15 minutes. Please wait for ${Math.floor(time / 60000)} minutes and ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
+                {file: {attachment: `${Constants.db}images/abbystop.png`, name: "stop.png"}});
+              } else {
+               message.channel.send(`${cdMess} You can only use this command once every 15 minutes. Please wait for ${Math.floor(time / 60000)} minutes and ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
+                {file: {attachment: `${Constants.db}images/abbyno.png`, name: "stop.png"}});            
+              }
+            } else {
+              this.cooldownYolo[message.author.id] = message.createdTimestamp;
+              var canvas = new Canvas(129, 222);
+              var ctx = canvas.getContext('2d');
+              this.roll1(ctx, r, [0, 0]).then((result) => {
+                message.channel.send(`The results are in after rolling on the '${chosen_gacha}' banner, ${roller} got (card IDs):\`\`\`\n${result}\`\`\``, {file: {attachment: canvas.toBuffer(), name: "result.png"}});
+              });
+            }
+          }
           if (global.gc) { global.gc(); }
         } else {
           let time = this.cooldown[message.author.id] - message.createdTimestamp + 900000;
