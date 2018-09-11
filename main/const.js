@@ -45,7 +45,6 @@ module.exports = {
     ['lb1', 'https://i.imgur.com/Cwzv15f.jpg'], 
     ['goetterdaemmerung', 'https://i.imgur.com/jcs4wZl.jpg'],
     ['lb2', 'https://i.imgur.com/jcs4wZl.jpg'], 
-    ["jp-summer", "https://i.imgur.com/P9EA7M9.png"],
-    ["prisma", "https://i.imgur.com/Bs4koAN.png"]
+    ["zero", "https://i.imgur.com/uANkZ3Y.jpg"]
   ])
 }
