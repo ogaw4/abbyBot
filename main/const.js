@@ -45,6 +45,7 @@ module.exports = {
     ['lb1', 'https://i.imgur.com/Cwzv15f.jpg'], 
     ['goetterdaemmerung', 'https://i.imgur.com/jcs4wZl.jpg'],
     ['lb2', 'https://i.imgur.com/jcs4wZl.jpg'], 
-    ["zero", "https://i.imgur.com/uANkZ3Y.jpg"]
+    ["zero", "https://i.imgur.com/uANkZ3Y.jpg"],
+    ['nanero', 'https://i.imgur.com/t0S9t3cg.png']
   ])
 }
