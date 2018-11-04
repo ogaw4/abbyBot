@@ -8,7 +8,7 @@ module.exports = class FGOQuizCommand extends Command {
     super(main, {
       name: "quiz",
       category: "Fate Grand Order",
-      help: "Get a quiz of a random Servant in Fate Grand Order, you'll have 5 minutes to answer!",
+      help: "Get a quiz of a random Servant in Fate Grand Order, you'll have 1 minute to answer!",
       alias: ["q"]
     });
     this.quizStatus = false;
@@ -28,8 +28,8 @@ module.exports = class FGOQuizCommand extends Command {
       return;
     }
 
-    let time = this.cooldown - message.createdTimestamp + 3000;
-    let longTime = this.cooldown - message.createdTimestamp + 30000;
+    let time = this.cooldown - message.createdTimestamp + 2000;
+    let longTime = this.cooldown - message.createdTimestamp + 5000;
     var cdFlag = false;
     var otherPlayerFlag = false;
     this.quizStatus = true;
@@ -54,18 +54,18 @@ module.exports = class FGOQuizCommand extends Command {
       let cdMess = this.main.util.ARand(this.cdMessages);
       if (otherPlayerFlag) {
         if (this.main.util.rand(0, 1)) {
-         message.channel.send(`${cdMess} A quiz can only be done every 30 seconds if you're playing alone! Find a friend or please wait for ${Math.ceil(longTime / 1000) % 60} seconds to try again.`, 
+         message.channel.send(`${cdMess} A quiz can only be done every 5 seconds if you're playing alone! Find a friend or please wait for ${Math.ceil(longTime / 1000) % 60} seconds to try again.`, 
           {file: {attachment: `${Constants.db}images/abbystop.png`, name: "stop.png"}});
         } else {
-         message.channel.send(`${cdMess} A quiz can only be done every 30 seconds if you're playing alone! Find a friend or please wait for ${Math.ceil(longTime / 1000) % 60} seconds to try again.`, 
+         message.channel.send(`${cdMess} A quiz can only be done every 5 seconds if you're playing alone! Find a friend or please wait for ${Math.ceil(longTime / 1000) % 60} seconds to try again.`, 
           {file: {attachment: `${Constants.db}images/abbyno.png`, name: "stop.png"}});            
         }
       } else {       
        if (this.main.util.rand(0, 1)) {
-         message.channel.send(`${cdMess} A quiz can only be done every 3 seconds. Please wait for ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
+         message.channel.send(`${cdMess} A quiz can only be done every 2 seconds. Please wait for ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
           {file: {attachment: `${Constants.db}images/abbystop.png`, name: "stop.png"}});
         } else {
-         message.channel.send(`${cdMess} A quiz can only be done every 3 seconds. Please wait for ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
+         message.channel.send(`${cdMess} A quiz can only be done every 2 seconds. Please wait for ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
           {file: {attachment: `${Constants.db}images/abbyno.png`, name: "stop.png"}});            
         }
      }
