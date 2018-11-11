@@ -135,7 +135,7 @@ module.exports = class FGOQuizCommand extends Command {
             if (this.quizStatus) {
               let guild = message.guild;
               let thonk = guild.emojis.find("name", "AbbyThink");
-              message.channel.send(`${thonk} One minute has passed and no one got it right... The correct answer was **${r.name}**...`);
+              message.channel.send(`${thonk} One minute has passed and no one got it right... The correct answer was **${r.name} (${r.alias.join(', ')})**...`);
               this.quizStatus = false;
             }
           });
