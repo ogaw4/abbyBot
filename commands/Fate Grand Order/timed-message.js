@@ -24,10 +24,10 @@ module.exports = class TimedMessageCommand extends Command {
     if (!message.member.hasPermission('MANAGE_GUILD')) {
       return message.channel.send("Error: You need to have server management rights to edit drop maps!");
     }
-    if (args.length == 2) {
+    if (args.length >= 2) {
       message.channel.send("Test test 123");
-      message.channel.send(args[0]);
-      message.channel.send(args[1]);
+      message.channel.send(args.splice(0, args.length - 2).join(' '));
+      message.channel.send(args[args.length - 1]);
     } else {
       message.channel.send(`Removing timed messages.`);
     }
