@@ -26,7 +26,7 @@ module.exports = class TimedMessageCommand extends Command {
     }
     if (args.length >= 2) {
       message.channel.send("Test test 123");
-      message.channel.send(args.splice(0, args.length - 2).join(' '));
+      message.channel.send(args.splice(0, args.length - 1).join(' '));
       message.channel.send(args[args.length - 1]);
     } else {
       message.channel.send(`Removing timed messages.`);
