@@ -19,17 +19,30 @@ module.exports = class TimedMessageCommand extends Command {
       help: "Send a set message on a timer. Use the command without arguments to cancel any existing messages.",
       caseSensitive: true
     });
+    this.message = "";
+    this.channel = null;
+    this.timeout = null;
   }
   run(message, args, prefix) {
     if (!message.member.hasPermission('MANAGE_GUILD')) {
       return message.channel.send("Error: You need to have server management rights to edit drop maps!");
     }
     if (args.length >= 2) {
-      message.channel.send("Test test 123");
-      message.channel.send(args.splice(0, args.length - 1).join(' '));
-      message.channel.send(args[args.length - 1]);
+      this.message = args.splice(0, args.length - 1).join(' ');
+      this.channel = message.channel;
+      if (!(this.timeout)) {
+          this.timeout = setInterval(() => {
+            this.channel.send(this.message);
+          }, parseInt(args[args.length - 1]) * 1000);
+      }
     } else {
       message.channel.send(`Removing timed messages.`);
+      if (this.timeout) {
+        clearInterval(this.timeout);
+        this.message = "";
+        this.channel = null;
+        this.timeout = null;
+      }
     }
   }
 }
