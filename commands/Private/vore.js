@@ -25,6 +25,7 @@ module.exports = class TimedMessageCommand extends Command {
       return message.channel.send("Error: You need to have message management rights to give me food!");
     }
     if (args.length >= 1) {
+        let guild = message.guild;
         var user = message.mentions.users.first();
         var count = parseInt(args[args.length - 1]);
         var stronk = guild.emojis.find("name", "AbbyStronk");
