@@ -27,6 +27,7 @@ module.exports = class TimedMessageCommand extends Command {
     if (args.length >= 1) {
         var user = message.mentions.users.first();
         var count = parseInt(args[args.length - 1]);
+        var stronk = guild.emojis.find("name", "AbbyStronk");
         message.channel.fetchMessages({ limit: `${count + 1}` }).then((messages) => {
             if (user) {
               const filterBy = user ? user.id : this.client.user.id;
@@ -34,7 +35,7 @@ module.exports = class TimedMessageCommand extends Command {
             }
             message.channel.bulkDelete(messages).catch(error => console.log(error.stack));
         });
-        message.channel.send("Nom nom nom");
+        message.channel.send(`Om nom nom ${stronk}`);
     } else {
         return message.channel.send("I don't know how many messages I can eat...");
     }
