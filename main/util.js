@@ -2,6 +2,7 @@ const fs = require('fs');
 const snek = require('snekfetch');
 const Constants = require('./const');
 const Canvas = require('canvas');
+const Discord = require('discord.js')
 
 module.exports = class Util {
   constructor(main) {
@@ -50,22 +51,20 @@ module.exports = class Util {
     });
   }
   fgoProfile(user, data) {
-    let embed = {
-      title: "FGO Profile for " + user.username,
-      fields: [
-        {
-          name: "IGN",
-          value: data.name || "Not Provided"
-        },
-        {
-          name: "Friend ID",
-          value: data.id || "Not Provided"
-        }
-      ],
-      description: "\u200b",
-      thumbnail: { url: user.displayAvatarURL }
+    const embed = new Discord.RichEmbed()
+      .setTitle("FGO Profile for " + user.username)
+      .addField("IGN:", data.name || "Not Provided", true)
+      .addField("Freind ID", data.id || "Not Provided", true)
+      .setDescription("\u200b")
+      .setThumbnail(user.displayAvatarURL);
+    
+    if (data.support) {
+      console.log("Embedding image: " + data.support);
+      embed.setImage(data.support);
+    } else {
+      console.log("Data had no support image");
     }
-    if (data.support) embed.image = { url: data.support }
+    
     return embed;
   }
   fgoItem(args) {

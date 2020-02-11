@@ -61,7 +61,8 @@ module.exports = class FGOUSProfileEditCommand extends Command {
           console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + " profile edit.");
           console.log(profile);
           this.main.db.set(`fgoUSProfile_${message.author.id}`, JSON.stringify(profile)).then(() => {
-            message.channel.send('Profile saved successfully', {embed: this.main.util.fgoProfile(message.author, profile)});
+            message.channel.send('Profile saved successfully');
+            message.channel.send(this.main.util.fgoProfile(message.author, profile));
           });
         } else message.channel.send(`Error: No argument provided. Please consult \`${prefix}help profile-edit\` for more information.`);
       });
