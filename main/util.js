@@ -53,14 +53,15 @@ module.exports = class Util {
   fgoProfile(user, data) {
     const embed = new Discord.RichEmbed()
       .setTitle("FGO Profile for " + user.username)
+      .addBlankField()
       .addField("IGN:", data.name || "Not Provided", true)
       .addField("Freind ID", data.id || "Not Provided", true)
-      .setDescription("\u200b")
       .setThumbnail(user.displayAvatarURL);
     
     if (data.support) {
       console.log("Embedding image: " + data.support);
       embed.setImage(data.support);
+      embed.setFooter(data.support);
     } else {
       console.log("Data had no support image");
     }
