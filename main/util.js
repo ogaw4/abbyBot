@@ -54,7 +54,7 @@ module.exports = class Util {
     const embed = new Discord.RichEmbed()
       .setTitle("FGO Profile for " + user.username)
       .addBlankField()
-      .addField("IGN:", data.name || "Not Provided", true)
+      .addField("IGN", data.name || "Not Provided", true)
       .addField("Friend ID", data.id || "Not Provided", true)
       .setThumbnail(user.displayAvatarURL);
     
