@@ -29,7 +29,7 @@ module.exports = class FGOProfileCommand extends Command {
     Promise.all([this.main.db.get(`fgoProfile_${player}`), this.main.client.fetchUser(player)]).then((profile) => {
       if (profile[0]) {
         profile[0] = JSON.parse(profile[0]);
-        if (!profile.privacy || !args) message.channel.send(this.main.util.fgoProfile(profile[1], profile[0]));
+        if (!profile.privacy || !args) message.channel.send('', {embed: this.main.util.fgoProfile(profile[1], profile[0])});
         else message.channel.send(`No peeking! That player has their privacy set to true.`);
       } else if (args) message.channel.send(`Cannot find profile of provided player. Please check the mention and try again!`);
       else message.channel.send(`Profile not found, please use \`${prefix}jp-profile-edit\` to create one.`);
