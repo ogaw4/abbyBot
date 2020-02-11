@@ -61,7 +61,6 @@ module.exports = class Util {
     if (data.support) {
       console.log("Embedding image: " + data.support);
       embed.setImage(data.support);
-      embed.setFooter(data.support);
     } else {
       console.log("Data had no support image");
     }
