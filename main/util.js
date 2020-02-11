@@ -55,7 +55,8 @@ module.exports = class Util {
       .setTitle("FGO Profile for " + user.username)
       .addBlankField()
       .addField("IGN:", data.name || "Not Provided", true)
-      .addField("Freind ID", data.id || "Not Provided", true)
+      .addBlankField()
+      .addField("Friend ID", data.id || "Not Provided", true)
       .setThumbnail(user.displayAvatarURL);
     
     if (data.support) {
