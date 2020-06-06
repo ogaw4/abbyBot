@@ -1,0 +1,30 @@
+{
+  "jp-missions": [
+    "Do 30 FP Summons",
+    "Defeat 8 Servants",
+    "Defeat 3 Saber, Archer or Lancer Servants",
+    "Defeat 3 Rider, Caster, Asassin or Berserker Servants",
+    "Defeat 15 enemies with Earth attribute", 
+    "Defeat 15 enemies with Man attribute"
+  ], 
+  "jp-rec": [
+    "Fuyuki X-F (Hassan - Assassin, Man; Benkei - Lancer, Man; Skeleton - Man)",
+    "Fuyuki Cavern (Salter - Saber, Man; Dragon Tooth Warrior - Earth)"
+  ], 
+  "na-missions": [
+    "Defeat 15 Door-type enemies",
+    "Defeat 15 Hand-type enemies",
+    "Defeat 15 Wyvern-type enemies",
+    "Defeat 15 Golem-type enemies", 
+    "Defeat 15 Assassin-class enemies", 
+    "Defeat 15 Saber-class enemies"
+  ], 
+  "na-rec": [
+    "Fuyuki X-A (Skeleton - Saber)", 
+    "Orleans Thiers (Wyvern)",
+    "Septem Gaul (Golem)",
+    "Septem Mt Etna (Ghost - Assassin)",
+    "Daily Doors",
+    "Daily Embers"
+  ]
+}
