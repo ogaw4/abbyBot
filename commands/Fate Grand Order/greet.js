@@ -1,4 +1,6 @@
 const Command = require('../../main/command');
+const {MessageAttachment} = require('discord.js');
+
 
 module.exports = class GreetCommand extends Command {
   constructor(main) {
@@ -9,6 +11,7 @@ module.exports = class GreetCommand extends Command {
     });
   }
   run(message, args, prefix) {
-    message.channel.send('', {file: {attachment: "http://i.imgur.com/eoWffyo.png", name: 'Whassup.png'}});
+    const attachment = new MessageAttachment("http://i.imgur.com/eoWffyo.png");
+    message.channel.send(attachment);
   }
 }

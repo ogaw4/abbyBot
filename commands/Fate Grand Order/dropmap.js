@@ -1,5 +1,6 @@
 const Command = require('../../main/command');
 const Constants = require('../../main/const');
+const {MessageAttachment} = require('discord.js');
 
 module.exports = class DropMapCommand extends Command {
   constructor(main) {

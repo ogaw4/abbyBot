@@ -1,5 +1,6 @@
 const Command = require('../../main/command');
 const Constants = require('../../main/const');
+const {MessageAttachment} = require('discord.js');
 
 module.exports = class FGOHusbandoCommand extends Command {
   constructor(main) {
@@ -23,11 +24,13 @@ module.exports = class FGOHusbandoCommand extends Command {
     if (time > 0  && message.author.id != this.main.config.ownerID) {
         let cdMess = this.main.util.ARand(this.cdMessages);
        if (this.main.util.rand(0, 1)) {
+         const attachment = new MessageAttachment(`${Constants.db}images/abbystop.png`);
          message.channel.send(`${cdMess} You can only use this command once every 15 minutes. Please wait for ${Math.floor(time / 60000)} minutes and ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
-          {file: {attachment: `${Constants.db}images/abbystop.png`, name: "stop.png"}});
+          attachment);
         } else {
+         const attachment = new MessageAttachment(`${Constants.db}images/abbyno.png`);
          message.channel.send(`${cdMess} You can only use this command once every 15 minutes. Please wait for ${Math.floor(time / 60000)} minutes and ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
-          {file: {attachment: `${Constants.db}images/abbyno.png`, name: "stop.png"}});            
+          attachment);            
         }
     } else {
       this.cooldown[message.author.id] = message.createdTimestamp;

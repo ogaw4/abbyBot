@@ -52,9 +52,9 @@ module.exports = class Util {
     });
   }
   fgoProfile(user, data) {
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
       .setTitle("FGO Profile for " + user.username)
-      .addBlankField()
+      .addField("", "")
       .addField("IGN", data.name || "Not Provided", true)
       .addField("Friend ID", data.id || "Not Provided", true)
       .setThumbnail(user.displayAvatarURL());
@@ -120,7 +120,7 @@ module.exports = class Util {
   dust(avatar) {
     return new Promise((resolve, reject) => {
       fetch(avatar).then(r => {
-        const canvas = new Canvas(150, 150);
+        const canvas = new Canvas.Canvas(150, 150);
         const ctx = canvas.getContext('2d');
         const img_bg = new Canvas.Image();
         img_bg.onload = function () {

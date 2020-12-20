@@ -3,6 +3,7 @@ const fetch = require('node-fetch');
 const GIFEncoder = require('gifencoder');
 const Canvas = require('canvas');
 const Constants = require('../../main/const');
+const {MessageAttachment} = require('discord.js');
 
 function generateGif(result) {
   const w = 2200;
@@ -47,7 +48,7 @@ function generateGif(result) {
       encoder.setRepeat(0);
       encoder.setDelay(4000);
       images = images.map(page => {
-        canvas = new Canvas(w, h);
+        canvas = new Canvas.Canvas(w, h);
         ctx = canvas.getContext('2d');
         ctx.fillStyle = "#363a3e";
         ctx.fillRect(0, 0, w, h);
@@ -84,7 +85,8 @@ module.exports = class GifGenerationCommand extends Command {
     fetch(`${Constants.db}item.json`).then(res => {
       res.json().then(r => {
         generateGif(r).then(attachment => {
-          message.channel.send('', {file: {attachment, name: 'Ascensionx.gif'}});
+          const discAttach = new MessageAttachment(attachment);
+          message.channel.send(discAttach);
         });
       });
     })

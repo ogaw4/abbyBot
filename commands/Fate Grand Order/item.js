@@ -1,5 +1,6 @@
 const Command = require('../../main/command');
 const Constants = require('../../main/const');
+const {MessageAttachment} = require('discord.js');
 
 module.exports = class ItemSearchCommand extends Command {
   constructor(main) {
@@ -36,13 +37,13 @@ module.exports = class ItemSearchCommand extends Command {
             thumbnail: { url: item.img }
           }});
         } else {
-          message.channel.send('Cannot find mentioned item, please enter the correct item name or item ID\n\nList of available items:', {
-            file: {attachment: `${Constants.db}Ascensionx.gif`, name: 'Ascensionx.gif'}
-          });
+          const attachment = new MessageAttachment(`${Constants.db}Ascensionx.gif`);
+          message.channel.send('Cannot find mentioned item, please enter the correct item name or item ID\n\nList of available items:', attachment);
         }
       });
     } else {
-      message.channel.send('List of available items:', {file: {attachment: `${Constants.db}Ascensionx.gif`, name: 'Ascensionx.gif'}});
+      const attachment = new MessageAttachment(`${Constants.db}Ascensionx.gif`);
+      message.channel.send('List of available items:', attachment);
     }
   }
 }

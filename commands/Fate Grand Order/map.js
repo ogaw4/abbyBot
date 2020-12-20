@@ -1,6 +1,7 @@
 const Command = require('../../main/command');
 const Constants = require('../../main/const');
 const fetch = require('node-fetch');
+const {MessageAttachment} = require('discord.js');
 
 module.exports = class FGOMapCommand extends Command {
   constructor(main) {
@@ -27,9 +28,8 @@ module.exports = class FGOMapCommand extends Command {
         });
         args = args.join(' ');
         if (args && args != "all" && maps[args]) {
-          message.channel.send(`Map for ${args.charAt(0).toUpperCase()}${args.slice(1)}:`, {
-            file: {attachment: maps[args], name: args + '.png'}
-          });
+          const attachment = new MessageAttachment(maps[args]);
+          message.channel.send(`Map for ${args.charAt(0).toUpperCase()}${args.slice(1)}:`, attachment);
         } else message.channel.send(`List of all available maps:\`\`\`\n${maps.all.join(', ')}\`\`\``);
 
       });

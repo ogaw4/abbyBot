@@ -2,6 +2,7 @@ const Command = require('../../main/command');
 const fetch = require('node-fetch');
 const Canvas = require('canvas');
 const Constants = require('../../main/const');
+const {MessageAttachment} = require('discord.js');
 
 module.exports = class GachaCommand extends Command {
   constructor(main) {
@@ -117,18 +118,19 @@ module.exports = class GachaCommand extends Command {
                if (time > 0 && message.author.id != this.main.config.ownerID) {
                 let cdMess = this.main.util.ARand(this.cdMessages);
                 if (this.main.util.rand(0, 1)) {
-                 message.channel.send(`${cdMess} You can only use this command once every minute. Please wait for ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
-                  {file: {attachment: `${Constants.db}images/abbystop.png`, name: "stop.png"}});
+                 const attachment = new MessageAttachment( `${Constants.db}images/abbystop.png`);
+                 message.channel.send(`${cdMess} You can only use this command once every minute. Please wait for ${Math.ceil(time / 1000) % 60} seconds to try again.`, attachment);
                 } else {
-                 message.channel.send(`${cdMess} You can only use this command once every minute. Please wait for ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
-                  {file: {attachment: `${Constants.db}images/abbyno.png`, name: "stop.png"}});            
+                 const attachment = new MessageAttachment( `${Constants.db}images/abbyno.png`);
+                 message.channel.send(`${cdMess} You can only use this command once every minute. Please wait for ${Math.ceil(time / 1000) % 60} seconds to try again.`, attachment);            
                 }
               } else {
                 this.cooldownYolo[message.author.id] = message.createdTimestamp;
-                var canvas = new Canvas(129, 222);
+                var canvas = new Canvas.Canvas(129, 222);
                 var ctx = canvas.getContext('2d');
+                const attachment = new MessageAttachment(canvas.toBuffer());
                 this.roll1(ctx, r, [0, 0]).then((result) => {
-                  message.channel.send(`The results are in after rolling on the '${chosen_gacha}' banner, ${roller} got (card IDs):\`\`\`\n${result}\`\`\``, {file: {attachment: canvas.toBuffer(), name: "result.png"}});
+                  message.channel.send(`The results are in after rolling on the '${chosen_gacha}' banner, ${roller} got (card IDs):\`\`\`\n${result}\`\`\``, attachment);
                 });
               }
             }
@@ -138,19 +140,22 @@ module.exports = class GachaCommand extends Command {
             if (time > 0 && message.author.id != this.main.config.ownerID) {
              let cdMess = this.main.util.ARand(this.cdMessages);
               if (this.main.util.rand(0, 1)) {
+               const attachment = new MessageAttachment( `${Constants.db}images/abbystop.png`);
                message.channel.send(`${cdMess} You can only use this command once every 15 minutes. Please wait for ${Math.floor(time / 60000)} minutes and ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
-                {file: {attachment: `${Constants.db}images/abbystop.png`, name: "stop.png"}});
+                attachment);
               } else {
+              const attachment = new MessageAttachment( `${Constants.db}images/abbyno.png`);
                message.channel.send(`${cdMess} You can only use this command once every 15 minutes. Please wait for ${Math.floor(time / 60000)} minutes and ${Math.ceil(time / 1000) % 60} seconds to try again.`, 
-                {file: {attachment: `${Constants.db}images/abbyno.png`, name: "stop.png"}});            
+                attachment);            
               }
             } else {
               this.cooldown[message.author.id] = message.createdTimestamp;
-              var canvas = new Canvas(645, 444);
+              var canvas = new Canvas.Canvas(645, 444);
               var ctx = canvas.getContext('2d');
               this.roll10(ctx, r).then((results) => {
                 results = results.slice(0, 5).join(' | ') + "\n" + results.slice(5).join(' | ');
-                message.channel.send(`The results are in after rolling on the '${chosen_gacha}' banner, are you salty or are you happy? Here's what ${roller} got (card IDs):\`\`\`\n${results}\`\`\``, {file: {attachment: canvas.toBuffer(), name: "result.png"}});
+                const attachment = new MessageAttachment(canvas.toBuffer());
+                message.channel.send(`The results are in after rolling on the '${chosen_gacha}' banner, are you salty or are you happy? Here's what ${roller} got (card IDs):\`\`\`\n${results}\`\`\``, attachment);
               });
               if (global.gc) { global.gc(); }
             }
