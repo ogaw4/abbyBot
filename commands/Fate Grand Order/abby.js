@@ -23,18 +23,17 @@ module.exports = class AbbyCommand extends Command {
         res.json().then(r => {
           let len = Object.keys(r).length;
           let picobj = r[this.main.util.rand(1, len)];
-          let user = message.guild.members.cache.get(picobj.sub);
-          console.log("user", user,"sub",picobj.sub);
-          console.log("from old api", message.guild.members.get(picobj.sub));
-          let embed = {
-            title: "Source",
-            color: 0xe55fbe,
-            description: `Submitted by ${user}.`,
-            url: picobj.src,
-            image: {url: "attachment://image.png"}
-          }
-          message.channel.send('', {embed, files: [{ attachment: `./images/abby/${picobj.fname}`, name: 'image.png'}]});
-        });
+          message.guild.members.fetch(picobj.sub).then(user => {
+            let embed = {
+              title: "Source",
+              color: 0xe55fbe,
+              description: `Submitted by ${user}.`,
+              url: picobj.src,
+              image: {url: "attachment://image.png"}
+            }
+            message.channel.send('', {embed, files: [{ attachment: `./images/abby/${picobj.fname}`, name: 'image.png'}]});
+          });
+       });
     });
     
   }
