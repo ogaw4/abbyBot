@@ -20,7 +20,8 @@ module.exports = class DropMapCommand extends Command {
     args = args.join(' ');
     if (args) {
       if (Constants.dropMap.has(args)) {
-        message.channel.send(`Drop map for ${args.charAt(0).toUpperCase()}${args.slice(1)}:`, {file: {attachment: Constants.dropMap.get(args), name: `${args}.png`}});
+        const attachment = new MessageAttachment(Constants.dropMap.get(args));
+        message.channel.send(`Drop map for ${args.charAt(0).toUpperCase()}${args.slice(1)}:`, attachment);
       } else {
         message.channel.send(`List of all available maps:\n${Array.from(Constants.dropMap.keys()).join(', ')}`);
       }
