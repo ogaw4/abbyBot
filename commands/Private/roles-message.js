@@ -12,20 +12,20 @@ module.exports = class RoleMessageCommand extends Command {
     if (message.author.id == this.main.config.ownerID) {
       let client = this.main.client;
       let guild = message.guild;
-      let rulesch = guild.channels.get("716867116363677697");
-      let avenger = guild.roles.get("453461969782177792");
-      let archer = guild.roles.get("453458978865807361");
-      let assassin = guild.roles.get("453459756296699904");
-      let alterego = guild.roles.get("453462310992740352");
-      let saber = guild.roles.get("453458795134451722");
-      let ruler = guild.roles.get("453462221864042496");
-      let berserker = guild.roles.get("453459633684742164");
-      let caster = guild.roles.get("453459455888064514");
-      let lancer = guild.roles.get("453459088781869060");
-      let foreigner = guild.roles.get("453462576257564683");
-      let mooncancer = guild.roles.get("453462308287414303");
-      let rider = guild.roles.get("453459391128272898");
-      let shielder = guild.roles.get("453461915377598465");
+      let rulesch = guild.channels.cache.get("716867116363677697");
+      let avenger = guild.roles.cache.get("453461969782177792");
+      let archer = guild.roles.cache.get("453458978865807361");
+      let assassin = guild.roles.cache.get("453459756296699904");
+      let alterego = guild.roles.cache.get("453462310992740352");
+      let saber = guild.roles.cache.get("453458795134451722");
+      let ruler = guild.roles.cache.get("453462221864042496");
+      let berserker = guild.roles.cache.get("453459633684742164");
+      let caster = guild.roles.cache.get("453459455888064514");
+      let lancer = guild.roles.cache.get("453459088781869060");
+      let foreigner = guild.roles.cache.get("453462576257564683");
+      let mooncancer = guild.roles.cache.get("453462308287414303");
+      let rider = guild.roles.cache.get("453459391128272898");
+      let shielder = guild.roles.cache.get("453461915377598465");
       let embed = {
         title: `<a:AlteraWiggle:459553151268290560> CLASS SELECTION`,
         description: "React with the Class you want, using the list below as reference. You can only have one Class at any given time.\n",

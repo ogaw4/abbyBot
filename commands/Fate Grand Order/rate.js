@@ -16,7 +16,7 @@ module.exports = class RateCommand extends Command {
   }
   run(message, args, prefix) {
     args = message.mentions.users.first() || message.author;
-    message.guild.fetchMember(args).then(i => {
+    message.guild.members.fetch(args).then(i => {
       message.channel.send(`${i.displayName} is a ${this.main.util.rand(1, 20) / 2} out of 10 servant!`);
     });
   }

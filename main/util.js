@@ -57,7 +57,7 @@ module.exports = class Util {
       .addBlankField()
       .addField("IGN", data.name || "Not Provided", true)
       .addField("Friend ID", data.id || "Not Provided", true)
-      .setThumbnail(user.displayAvatarURL);
+      .setThumbnail(user.displayAvatarURL());
     
     if (data.support) {
       console.log("Embedding image: " + data.support);

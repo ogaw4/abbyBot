@@ -41,7 +41,7 @@ module.exports = class Dashboard {
     }
 
     let data = {
-      guild: main.client.guilds.size,
+      guild: main.client.guilds.cache.size,
       command: commandUsage,
     }
 

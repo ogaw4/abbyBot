@@ -111,16 +111,16 @@ module.exports = class FGOQuizCommand extends Command {
             collector.on('collect', (m, collector) => {
               if (this.quizStatus) {
                 if (aliases.indexOf(m.content.toLowerCase()) > -1) {
-                  let guild = message.guild;
-                  let right = guild.emojis.find("name", "AbbySmile");
+                  let guild = message.guild;                  
+                  let right = guild.emojis.cache.find(emoji => emoji.name === "AbbySmile");
                   console.log(`[${new Date().toISOString().replace('T', ' ').substr(0, 19)}] ` + `${m.author.username} won, quiz ended`);
                   message.channel.send(`${right} **Congratulations ${m.author}!** ${right}\nThe right answer is **${r.name}**!`);
                   this.quizStatus = false;
                   collector.stop();
                   // if (global.gc) { global.gc(); }
                 } else if (m.content.toLowerCase() == "stoppu" && (m.member.hasPermission('MANAGE_GUILD') || m.member.id == quiz_init_owner)) {
-                  let guild = message.guild;
-                  let right = guild.emojis.find("name", "AbbyStronk");
+                  let guild = message.guild;                  
+                  let right = guild.emojis.cache.find(emoji => emoji.name === "AbbyStronk");
                   message.channel.send(`Quiz aborted! ${right}`);
                   this.quizStatus = false;
                   collector.stop();
@@ -133,8 +133,8 @@ module.exports = class FGOQuizCommand extends Command {
   
             collector.on('end', (collected, reason) => {
               if (this.quizStatus) {
-                let guild = message.guild;
-                let thonk = guild.emojis.find("name", "AbbyThink");
+                let guild = message.guild;                
+                let thonk = guild.emojis.cache.find(emoji => emoji.name === "AbbyThink");
                 message.channel.send(`${thonk} One minute has passed and no one got it right... The correct answer was **${r.name} (${r.alias.join(', ')})**...`);
                 this.quizStatus = false;
               }

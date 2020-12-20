@@ -16,10 +16,10 @@ module.exports = class CivilizationCommand extends Command {
   }
   run(message, args, prefix) {
     args = message.mentions.users.first() || message.author;
-    message.guild.fetchMember(args).then(i => {
-      let guild = message.guild;
-      let goodciv = guild.emojis.find("name", "AlteraGoodCiv");
-      let badciv = guild.emojis.find("name", "AlteraBadciv");
+    message.guild.members.fetch(args).then(i => {
+      let guild = message.guild;      
+      let goodciv = guild.emojis.cache.find(emoji => emoji.name === "AlteraGoodCiv");
+      let badciv = guild.emojis.cache.find(emoji => emoji.name === "AlteraBadCiv");
       if (this.main.util.rand(0, 1)) message.channel.send(`${i.displayName} is good civilization! ${goodciv}`);
       else message.channel.send(`${i.displayName} is bad civilization! ${badciv}`);
     });

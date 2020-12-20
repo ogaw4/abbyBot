@@ -27,9 +27,9 @@ module.exports = class TimedMessageCommand extends Command {
     if (args.length >= 1) {
         let guild = message.guild;
         var user = message.mentions.users.first();
-        var count = parseInt(args[args.length - 1]);
-        var stronk = guild.emojis.find("name", "AbbyStronk");
-        message.channel.fetchMessages({ limit: `${count + 1}` }).then((messages) => {
+        var count = parseInt(args[args.length - 1]);        
+        let stronk = guild.emojis.cache.find(emoji => emoji.name === "AbbyStronk");
+        message.channel.messages.fetch({ limit: `${count + 1}` }).then((messages) => {
             if (user) {
               const filterBy = user ? user.id : this.client.user.id;
               messages = messages.filter(m => m.author.id === filterBy).array().slice(0, count);

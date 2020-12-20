@@ -23,7 +23,7 @@ module.exports = class FGOUSProfileCommand extends Command {
       if (mentionID) player = mentionID[1];
       else player = "";
     }
-    Promise.all([this.main.db.get(`fgoUSProfile_${player}`), this.main.client.fetchUser(player)]).then((profile) => {
+    Promise.all([this.main.db.get(`fgoUSProfile_${player}`), this.main.client.users.fetch(player)]).then((profile) => {
       if (profile[0]) {
         profile[0] = JSON.parse(profile[0]);
         if (!profile.privacy || !args) message.channel.send('', {embed: this.main.util.fgoProfile(profile[1], profile[0])});
