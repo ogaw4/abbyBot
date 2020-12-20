@@ -24,6 +24,8 @@ module.exports = class AbbyCommand extends Command {
           let len = Object.keys(r).length;
           let picobj = r[this.main.util.rand(1, len)];
           let user = message.guild.members.cache.get(picobj.sub);
+          console.log("user", user,"sub",picobj.sub);
+          console.log("from old api", message.guild.members.get(picobj.sub));
           let embed = {
             title: "Source",
             color: 0xe55fbe,
