@@ -15,11 +15,12 @@ module.exports = class TrackReactsCommand extends Command {
       let rulesch = guild.channels.get("716867116363677697");
       rulesch.fetchMessages({limit: 5}).then(
           msgs => {
-            let roles_msg = null;
+            let roles_msg = null;            
 
-
-            if (msgs.last().author.id == "478607190761144330") {
-                roles_msg = msgs.last();
+            if (msgs.first().author.id == "478607190761144330") {
+              roles_msg = msgs.first();
+            } else {
+              console.log(msgs.first().author);
             }
       
             if (roles_msg != null) {
@@ -64,29 +65,36 @@ module.exports = class TrackReactsCommand extends Command {
                     let role_names = ["Avenger", "Archer", "Assassin", "Alter Ego", "Saber", "Ruler", "Berserker", "Caster", "Lancer", "Foreigner", "Moon Cancer", "Rider", "Shielder"];
                     let message = reaction.message, emoji = reaction.emoji;
                     if (message.id == roles_msg.id && user.id != "478607190761144330") {
-                        if (emoji_list.includes(emoji.id)) {
-                            message.guild.fetchMember(user.id).then(member => {
-                                let cur_role = null;
-                                console.log("User changing role", member.displayName);
+                        let time = Date.now() - global.rolesCD[user.id];
+                        if (typeof global.rolesCD[user.id] === "undefined" || time >= 5000) {
+                          if (emoji_list.includes(emoji.id)) {
+                              message.guild.fetchMember(user.id).then(member => {
+                                  let cur_role = null;
+                                  console.log("User changing role", member.displayName);
 
-                                for (let [key, value] of member.roles.entries()) {
-                                    if (role_ids.includes(key)) {
-                                        cur_role = value;
-                                        break;
-                                    }
-                                }
+                                  for (let [key, value] of member.roles.entries()) {
+                                      if (role_ids.includes(key)) {
+                                          cur_role = value;
+                                          break;
+                                      }
+                                  }
 
-                                if (cur_role == null) {
-                                    member.addRole(role_list[emoji_list.indexOf(emoji.id)])
-                                    .then(() => user.send(`Hi! I gave you the ${role_names[emoji_list.indexOf(emoji.id)]} role in ${message.guild.name}!`))
-                                    .catch(() => console.error("Error giving user role."));
-                                } else {
-                                    member.removeRole(cur_role)
-                                    .then(() => member.addRole(role_list[emoji_list.indexOf(emoji.id)]))
-                                    .then(() => user.send(`Hi! I gave you the ${role_names[emoji_list.indexOf(emoji.id)]} role in ${message.guild.name}!`))
-                                    .catch(() => console.error("Error giving user role."));
-                                }
-                            });
+                                  if (cur_role == null) {
+                                      member.addRole(role_list[emoji_list.indexOf(emoji.id)])
+                                      .then(() => user.send(`Hi! I gave you the ${role_names[emoji_list.indexOf(emoji.id)]} role in ${message.guild.name}!`))
+                                      .catch(() => console.error("Error giving user role."));
+                                  } else {
+                                      member.removeRole(cur_role)
+                                      .then(() => member.addRole(role_list[emoji_list.indexOf(emoji.id)]))
+                                      .then(() => user.send(`Hi! I gave you the ${role_names[emoji_list.indexOf(emoji.id)]} role in ${message.guild.name}!`))
+                                      .catch(() => console.error("Error giving user role."));
+                                  }
+                                  global.rolesCD[user.id] = Date.now();
+                              });
+                          }
+                        } else {
+                          user.send(`Don't spam role changes! Wait a few seconds!`)
+                                      .catch(() => console.error("Error sending user message."));                          
                         }
                         reaction.remove(user);
                     }

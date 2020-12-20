@@ -1,6 +1,5 @@
 const Command = require('../../main/command');
 const Constants = require('../../main/const');
-const snek = require('snekfetch');
 
 module.exports = class FGOProfileCommand extends Command {
   constructor(main) {

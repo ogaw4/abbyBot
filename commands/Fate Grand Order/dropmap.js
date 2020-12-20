@@ -1,4 +1,3 @@
-const snek = require('snekfetch');
 const Command = require('../../main/command');
 const Constants = require('../../main/const');
 

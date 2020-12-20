@@ -1,6 +1,6 @@
 const Command = require('../../main/command');
 const Constants = require('../../main/const');
-const snek = require('snekfetch');
+const fetch = require('node-fetch');
 
 module.exports = class FGOMapCommand extends Command {
   constructor(main) {
@@ -17,20 +17,22 @@ module.exports = class FGOMapCommand extends Command {
     });
   }
   run(message, args, prefix) {
-    snek.get('https://api.github.com/repos/ogaw4/abbyDB/contents/maps').then(r => {
-      r = JSON.parse(r.text);
-      let maps = { all: [] };
-      r.forEach(item => {
-        let mapName = item.name.slice(0, -4).toLowerCase();
-        maps.all.push(mapName.charAt(0).toUpperCase() + mapName.slice(1));
-        maps[mapName] = item["download_url"];
-      });
-      args = args.join(' ');
-      if (args && args != "all" && maps[args]) {
-        message.channel.send(`Map for ${args.charAt(0).toUpperCase()}${args.slice(1)}:`, {
-          file: {attachment: maps[args], name: args + '.png'}
+    fetch('https://api.github.com/repos/ogaw4/abbyDB/contents/maps').then(res => {
+      res.json().then(r => {
+        let maps = { all: [] };
+        r.forEach(item => {
+          let mapName = item.name.slice(0, -4).toLowerCase();
+          maps.all.push(mapName.charAt(0).toUpperCase() + mapName.slice(1));
+          maps[mapName] = item["download_url"];
         });
-      } else message.channel.send(`List of all available maps:\`\`\`\n${maps.all.join(', ')}\`\`\``);
+        args = args.join(' ');
+        if (args && args != "all" && maps[args]) {
+          message.channel.send(`Map for ${args.charAt(0).toUpperCase()}${args.slice(1)}:`, {
+            file: {attachment: maps[args], name: args + '.png'}
+          });
+        } else message.channel.send(`List of all available maps:\`\`\`\n${maps.all.join(', ')}\`\`\``);
+
+      });
     });
   }
 }

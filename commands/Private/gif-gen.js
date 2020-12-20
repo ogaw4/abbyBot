@@ -1,5 +1,5 @@
 const Command = require('../../main/command');
-const snek = require('snekfetch');
+const fetch = require('node-fetch');
 const GIFEncoder = require('gifencoder');
 const Canvas = require('canvas');
 const Constants = require('../../main/const');
@@ -21,7 +21,7 @@ function generateGif(result) {
     images = images.map((item, i) => {
       return new Promise((resolve, reject) => {
         let base = new Canvas.Image();
-        snek.get(item.link).then(r => {
+        fetch(item.link).then(r => {
           base.onerror = reject;
           base.onload = () => {
             item.link = base;
@@ -81,10 +81,11 @@ module.exports = class GifGenerationCommand extends Command {
     });
   }
   run(message, args, prefix) {
-    snek.get(`${Constants.db}item.json`).then(r => {
-      r = JSON.parse(r.text);
-      generateGif(r).then(attachment => {
-        message.channel.send('', {file: {attachment, name: 'Ascensionx.gif'}});
+    fetch(`${Constants.db}item.json`).then(res => {
+      res.json().then(r => {
+        generateGif(r).then(attachment => {
+          message.channel.send('', {file: {attachment, name: 'Ascensionx.gif'}});
+        });
       });
     })
   }

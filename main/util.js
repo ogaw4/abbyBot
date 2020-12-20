@@ -1,5 +1,5 @@
 const fs = require('fs');
-const snek = require('snekfetch');
+const fetch = require('node-fetch');
 const Constants = require('./const');
 const Canvas = require('canvas');
 const Discord = require('discord.js')
@@ -40,13 +40,14 @@ module.exports = class Util {
       else if (chance <= rate[2]) chance = "SR";
       else if (chance <= rate[3]) chance = "R";
       else chance = "N";
-      snek.get(`${Constants.db}vc.json`).then(r => {
-        r = JSON.parse(r.text);
-        let result = [];
-        for (let id in r) {
-          if (r[id].rarity == chance) result.push(r[id]);
-        }
-        resolve(this.ARand(result));
+      fetch(`${Constants.db}vc.json`).then(res => {
+        res.json().then(r => {
+          let result = [];
+          for (let id in r) {
+            if (r[id].rarity == chance) result.push(r[id]);
+          }
+          resolve(this.ARand(result));
+        });
       });
     });
   }
@@ -70,21 +71,22 @@ module.exports = class Util {
   fgoItem(args) {
     return new Promise((resolve, reject) => {
       let item = false;
-      snek.get(`${Constants.db}item.json`).then(r => {
-        r = JSON.parse(r.text);
-        if (!(item = r[args.toUpperCase()])) {
-          for (let index in r) {
-            let i = r[index];
-            let aliases = i.alias.map(function(itm) { return itm.toLowerCase(); });
-            if (!item && aliases.indexOf(args.toLowerCase()) > -1) {
-              item = i;
-              item.id = index;
+      fetch(`${Constants.db}item.json`).then(res => {
+        res.json().then(r => {
+          if (!(item = r[args.toUpperCase()])) {
+            for (let index in r) {
+              let i = r[index];
+              let aliases = i.alias.map(function(itm) { return itm.toLowerCase(); });
+              if (!item && aliases.indexOf(args.toLowerCase()) > -1) {
+                item = i;
+                item.id = index;
+              }
             }
+          } else {
+            item.id = args.toUpperCase();
           }
-        } else {
-          item.id = args.toUpperCase();
-        }
-        resolve(item);
+          resolve(item);
+        });
       });
     });
   }
@@ -101,21 +103,23 @@ module.exports = class Util {
       else if (chance <= rate[3]) chance = "2";
       else chance = "1";
       if (chance == "2" && sex == "F") chance = "3";
-      snek.get(`${Constants.db}fgo_main.json`).then(r => {
-        r = JSON.parse(r.text);
-        let result = [];
-        for (let id in r) {
-          if (r[id].rarity == chance && (r[id].sex == "?" || r[id].sex == sex))  {
-            result.push(r[id]);
-          }
-        }
-        resolve(this.ARand(result));
-      });
+      fetch(`${Constants.db}fgo_main.json`)
+        .then(res => {
+          res.json().then(r => {
+            let result = [];
+            for (let id in r) {
+              if (r[id].rarity == chance && (r[id].sex == "?" || r[id].sex == sex))  {
+                result.push(r[id]);
+              }
+            }
+            resolve(this.ARand(result));            
+          });
+        });
     });
   }
   dust(avatar) {
     return new Promise((resolve, reject) => {
-      snek.get(avatar).then(r => {
+      fetch(avatar).then(r => {
         const canvas = new Canvas(150, 150);
         const ctx = canvas.getContext('2d');
         const img_bg = new Canvas.Image();
